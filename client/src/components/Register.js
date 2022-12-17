@@ -64,7 +64,7 @@ const Register = () => {
 
   return (
     <>
-      <Button onClick={onOpen} colorScheme="blue">
+      <Button onClick={onOpen} colorScheme="blue" size="lg" margin="10px">
         Register
       </Button>
       {/* {loading ? <Spinner> : <Text color={color}>Hi</Text>} */}
