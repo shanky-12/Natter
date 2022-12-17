@@ -117,7 +117,7 @@ function AllPost() {
     <>
     <div>
    {/*  https://chakra-ui.com/docs/components/container */}
-      <Navbar />
+      {/* <Navbar /> */}
       {<Container maxW="container.sm" centerContent p={8}>  
         <VStack spacing={8} w="100%">
           {posts.map((post) => (

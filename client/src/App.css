@@ -190,6 +190,11 @@ span {
   
   }
 
+  #error{
+	color: rgb(230, 15, 15);
+  	padding-left: 20px;
+  }
+
   .comment {
     text-align:  left ;
     padding: 5px 32px;
