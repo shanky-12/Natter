@@ -80,7 +80,7 @@ import {
       });
     return (
 
-        <Card align='center'>
+   <Card align='center'>
   <CardHeader>
     <Heading size='md'>Display Name: {name}</Heading>
     <br>
