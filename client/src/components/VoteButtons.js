@@ -1,7 +1,7 @@
 import { IconButton, Text, VStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { FiArrowDown, FiArrowUp } from "react-icons/fi";
-import db from "../lib/firebase";
+import { db } from "../lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 const VoteButtons = ({ post }) => {
@@ -89,7 +89,7 @@ const VoteButtons = ({ post }) => {
           icon={<FiArrowUp />}
           onClick={() => handleClick("upvote")}
           isLoading={isVoting}
-          isDisabled={checkIfPostIsAlreadyVoted()}
+          /* isDisabled={checkIfPostIsAlreadyVoted()} */
         />
         <Text bg="gray.100" rounded="md" w="100%" p={1}>
           {post.upVotesCount}
@@ -103,7 +103,7 @@ const VoteButtons = ({ post }) => {
           icon={<FiArrowDown />}
           onClick={() => handleClick("downvote")}
           isLoading={isVoting}
-          isDisabled={checkIfPostIsAlreadyVoted()}
+         /*  isDisabled={checkIfPostIsAlreadyVoted()} */
         />
         <Text bg="gray.100" rounded="md" w="100%" p={1}>
           {post.downVotesCount}

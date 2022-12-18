@@ -6,24 +6,31 @@
     "@chakra-ui/react": "^2.4.3",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@firebase/storage": "^0.10.0",
     "@google-cloud/firestore": "^6.4.1",
-    "@react-firebase/firestore": "^0.5.5",
+    "@popperjs/core": "^2.11.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "assert": "^2.0.0",
+    "buffer": "^6.0.3",
     "child_process": "^1.0.2",
+    "constants-browserify": "^1.0.0",
+    "dotenv": "^16.0.3",
     "firebase": "^9.15.0",
-    "firebase-admin": "^11.3.0",
-    "firebase-functions": "^4.1.0",
-    "framer-motion": "^7.6.19",
-    "imagemagick": "^0.1.3",
+    "fs-extra": "^11.1.0",
+    "gm": "^1.25.0",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-modal": "^3.16.1",
+    "react-remove-scroll": "^2.5.5",
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
+    "spawn-sync": "^2.0.0",
+    "stream-browserify": "^3.0.0",
+    "util": "^0.12.5",
+    "uuid": "^9.0.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -49,5 +56,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "process": "^0.11.10",
+    "react-error-overlay": "^6.0.11"
   }
 }

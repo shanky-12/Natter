@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { collection, doc, getDoc,addDoc, getFirestore, onSnapshot, query, orderBy, limit } from "firebase/firestore";
-import db from "../lib/firebase";
+import { db } from "../lib/firebase";
 import React, { useState, useEffect } from 'react';
 import { Container, Flex, Spinner, VStack, Textarea, Text,Button  } from "@chakra-ui/react"; 
 import AllCommentDisplay from './AllCommentDisplay';

@@ -1,48 +1,150 @@
-import { useDisclosure, Button, FormControl, FormLabel, Input, Textarea, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
-import { useState } from "react";
-import { collection, addDoc } from "firebase/firestore";
-import db from "../lib/firebase";
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Textarea,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  HStack,
+  Input,
+  useDisclosure,
+} from "@chakra-ui/react";
+import React, { useState, useEffect } from "react";
+// import db from "../lib/firebase";
+// import storage from "../lib/firebase";
+import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+
+
+//const app = initializeApp(firebaseConfig);
+// import { initializeApp } from 'firebase/app';
+//import { getFirestore } from 'firebase/firestore/lite';
+// import { getFirestore } from 'firebase/firestore';
+// import { getAuth } from "firebase/auth";
+// import {getStorage} from "firebase/storage"
+import {ref, uploadBytesResumable,getDownloadURL} from "firebase/storage"
+
+import {db, auth, firebaseStorage} from "../lib/firebase"
+//const functions = require('firebase-functions');
+//const admin = require('firebase-admin');
+
+//const {Firestore} = require('@google-cloud/firestore');
+//import {Firestore} from 'google-cloud/firestore';
+
+// const firebaseConfig = {
+//   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+//   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+//   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+//   storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+//   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+//   appId: process.env.REACT_APP_FIREBASE_APP_ID,
+//   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
+// };
+
+// const app = initializeApp(firebaseConfig);
+// const auth = getAuth(app);
+// const db = getFirestore(app);//.firestore();
+// const storage = getStorage(app)
+
 
 const AddNewPost = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [imageFile, setImageFile] = useState("");
-  const [videoFile, setVideoFile] = useState("");
+  // const [imageUpload, setImageUpload] = useState("");
+  const [imageFile, setImageFile] = useState(null);
+  const [uid, setUID] = useState("");
   const [isSaving, setSaving] = useState(false);
+  const [percent, setPercent] = useState(0);
+  const [url, setUrl] = useState("");
+  const auth = getAuth();
 
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUID(user.uid);
+        // ...
+      } else {
+      }
+    });
+  });
   const handleSubmit = async () => {
+    //const db = getFirestore(app);
+    let iurl="";
+    console.log("db", db);
     setSaving(true);
     const date = new Date();
-    if (!imageFile || !videoFile) {
+    if (!imageFile) { // || !videoFile) {
       // Display an error message or do something else to let the user know that they need to select a file.
       return;
     }
     try {
-       // added code to read video file data
-       const videoReader = new FileReader();
-       videoReader.readAsDataURL(videoFile);
-       videoReader.onload = async () => {
-      const videoDataUrl = videoReader.result;
-
-      const imageReader = new FileReader();
-      imageReader.readAsDataURL(imageFile);
-      imageReader.onload = async () => {
-      const imageDataUrl = imageReader.result;
-      const docRef = await addDoc(collection(db, "posts"), {
-        title,
-        description,
-        imageDataUrl,
-        videoDataUrl,
-        upVotesCount: 0,
-        downVotesCount: 0,
-        createdAt: date.toUTCString(),
-        updatedAt: date.toUTCString(),
-      });
-
-      console.log("Document written with ID: ", docRef.id);
-    };
-  };
+      // const storage = getStorage();
+      // const storage = firebase.storage();
+      // Generate a unique file name for the uploaded image
+      const fileName = `${date.getTime()}-${imageFile.name}`;
+      console.log("check1" + fileName)
+      console.log(firebaseStorage)
+      // Create a reference to the location where the image will be stored
+      const imageRef = ref(firebaseStorage, `images/${fileName}`)
+      console.log("check2" +imageRef)
+      // await imageRef.put(imageFile);
+      // iurl = await fileRef.getDownloadURL();
+      // addDoc('posts', { title, description, iurl });
+      // Upload the image file to Firebase Storage
+      // await imageRef.put(imageFile);
+      // let imageUrl;
+      
+      // const uploadTask = imageRef.put(imageFile);
+      const uploadTask = uploadBytesResumable(imageRef, imageFile);
+      uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+          const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        
+        // update progress
+        setPercent(percent);
+        },
+        (err) => console.log(err),
+          async () => {
+// download url
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadUrl) => {
+          //imageUrl = url;
+          // if(url) {
+          // imageUrl = url ? url : 'http://placeholder.com';}
+          console.log(downloadUrl);
+          
+          iurl = downloadUrl;
+          setUrl(downloadUrl)
+          const docRef = await addDoc(collection(db, "posts"), {
+            title: title,
+            userID: uid,
+            description: description,
+            iurl,
+            upVotesCount: 0,
+            downVotesCount: 0,
+            createdAt: date.toUTCString(),
+            updatedAt: date.toUTCString(),
+          });
+    
+          console.log("Document written with ID: ", docRef.id);
+          
+          console.log(iurl);
+          });
+          console.log(iurl);
+          
+        
+    })
+        console.log(iurl);
+        console.log("image url by aditi " + iurl);
+      
     } catch (e) {
       console.error("Error adding document: ", e);
     }
@@ -51,13 +153,13 @@ const AddNewPost = () => {
     setTitle("");
     setDescription("");
     setImageFile(null);
-    setVideoFile(null);
+
     setSaving(false);
   };
 
   return (
     <>
-      <Button onClick={onOpen} colorScheme="blue">
+      <Button onClick={onOpen} variant="solid" colorScheme="green" size="xxlg">
         Add new post
       </Button>
 
@@ -88,36 +190,32 @@ const AddNewPost = () => {
               </FormControl>
 
               <FormControl id="post-imageupload">
-                <FormLabel>Upload Image</FormLabel>
+                <FormLabel>Image Upload</FormLabel>
                 <input
                   type="file"
                   alt="No image"
                   onChange={(e) => setImageFile(e.target.files[0])}
                 />
               </FormControl>
-              <FormControl id="post-videoupload">
-                <FormLabel>Upload Video</FormLabel>
-                <input
-                  type="file"
-                  alt="No file"
-                  onChange={(e) => setVideoFile(e.target.files[0])}
-                />
-              </FormControl>
             </ModalBody>
             <ModalFooter>
-              <Button
-                isLoading={isSaving}
-                onClick={handleSubmit}
-                variantcolor="blue"
-              >
-                Save
-                  </Button>
-              </ModalFooter>
-            </ModalContent>
-          </ModalOverlay>
-        </Modal>
-      </>
-    );
-  };
-               
-  export default AddNewPost;
+              <HStack spacing={4}>
+                <Button onClick={onClose}>Close</Button>
+                <Button
+                  onClick={handleSubmit}
+                  colorScheme="blue"
+                  disabled={!title.trim() && !description.trim()}
+                  isLoading={isSaving}
+                >
+                  Save
+                </Button>
+              </HStack>
+            </ModalFooter>
+          </ModalContent>
+        </ModalOverlay>
+      </Modal>
+    </>
+  );
+};
+
+export default AddNewPost;
