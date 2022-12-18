@@ -2,7 +2,7 @@ import { Box, HStack, Text, Button, Image } from "@chakra-ui/react";
 import React from "react";
 import VoteButtons from "./VoteButtons";
 import { Link, useParams } from 'react-router-dom';
-
+import noImage from '../img/download.jpeg'
 const Post = ({ post }) => {
 
 console.log("post val", post.id, post.id.toString())
@@ -13,7 +13,7 @@ console.log("post val", post.id, post.id.toString())
      
         <Text as='b'>{post.title}</Text>
         <Text>{post.description}</Text>
-        <Image src={post.url} alt="Post image" boxSize='300px' />
+        {post.url ? <Image src={post.url} alt="Post image" boxSize='300px' /> :  <Image src={noImage} alt="Post image" boxSize='300px' />}
         <Text>{post.createdAt}</Text>
       </Box>
      
