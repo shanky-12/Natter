@@ -47,14 +47,6 @@ const AddNewPost = () => {
     setSaving(true);
     const date = new Date();
 
-    /*  try {
-      const docRef = await addDoc(collection(db, "posts"), {
-        message: todo,    
-      });
-      console.log("Document written with ID: ", docRef.id);
-    } catch (e) {
-      console.error("Error adding document: ", e);
-    } */
     try {
       const docRef = await addDoc(collection(db, "posts"), {
         title: title,
@@ -71,14 +63,6 @@ const AddNewPost = () => {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-
-    /*        await db.collection("posts").add({
-        title,
-        upVotesCount: 0,
-        downVotesCount: 0,
-        createdAt: date.toUTCString(),
-        updatedAt: date.toUTCString(),
-      }); */
 
     onClose();
     setTitle("");
