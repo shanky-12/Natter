@@ -89,7 +89,7 @@ const VoteButtons = ({ post }) => {
           icon={<FiArrowUp />}
           onClick={() => handleClick("upvote")}
           isLoading={isVoting}
-          isDisabled={checkIfPostIsAlreadyVoted()}
+          /* isDisabled={checkIfPostIsAlreadyVoted()} */
         />
         <Text bg="gray.100" rounded="md" w="100%" p={1}>
           {post.upVotesCount}
@@ -103,7 +103,7 @@ const VoteButtons = ({ post }) => {
           icon={<FiArrowDown />}
           onClick={() => handleClick("downvote")}
           isLoading={isVoting}
-          isDisabled={checkIfPostIsAlreadyVoted()}
+         /*  isDisabled={checkIfPostIsAlreadyVoted()} */
         />
         <Text bg="gray.100" rounded="md" w="100%" p={1}>
           {post.downVotesCount}

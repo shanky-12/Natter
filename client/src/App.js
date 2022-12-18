@@ -13,7 +13,9 @@ import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 //import AllPost from './components/AllPost';
 import AllPost from './components/AllPost';
 import Comment from './components/Comment';
-
+import PrivateRoute from './components/PrivateRoute';
+import Navbar from './components/Navbar';
+import Profile from './components/Profile';
 
 
 
@@ -22,29 +24,20 @@ function App() {
    
   <Router>
     <div className='App'>
-     {/*  <header className='App-header'>
-         <img src={logo} className='App-logo' alt='logo' />
-         <h1 className='App-title'>Welcome to the React.js Marvel API</h1>
-        <Link className='showlink' to='/'>
-          Home
-        </Link>
-         <Link className='showlink' to='/characters/page/1'>
-          Characters
-        </Link>  
-        <Link className='showlink' to='/comics/page/1'>
-          Comics
-        </Link>
-        <Link className='showlink' to='/stories/page/1'>
-          Stories
-        </Link>
-      </header> */}
-      <br />
+      <header className='App-header'>
+      <Navbar />
+      </header>
+
       <br />
       <div className='App-body'>
         <Routes>
        {/*  <Route exact path='/' component={Home} /> */}
         <Route path='/' element={<AllPost/>}></Route>
         <Route path='/posts/:postnum' element={<Comment/>}></Route>
+        <Route path='/profile' element={<Profile/>}></Route>
+        {/* <Route path='/home' element={<PrivateRoute />}>
+            <Route path='/home' element={<Home />} />
+          </Route> */}
       {/*   <Route path='/characters/page/:pagenum' element={<CharactersList />} /> 
         <Route path='/comics/page/:pagenum' element={<ComicsList />} /> 
         <Route path='/stories/page/:pagenum' element={<StoriesList />} />
