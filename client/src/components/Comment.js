@@ -74,6 +74,7 @@ function Comment() {
         // console.log(data);
 
         return (
+            
             <div>
 
                 {sdata.map((post) => {
