@@ -1,10 +1,11 @@
 import { Link, useParams } from 'react-router-dom';
 import { collection, doc, getDoc,addDoc, getFirestore, onSnapshot, query, orderBy, limit } from "firebase/firestore";
-import db from "../lib/firebase";
+import { db } from "../lib/firebase";
 import React, { useState, useEffect } from 'react';
-import { Container, Flex, Spinner, VStack, Textarea, Text,Button  } from "@chakra-ui/react"; 
+import { Container, Flex, Spinner, VStack, Textarea, Text,Button, Center, Image  } from "@chakra-ui/react"; 
 import AllCommentDisplay from './AllCommentDisplay';
 import '../App.css';
+import noImage from '../img/download.jpeg'
 
 function Comment() {
     let postId = useParams().postnum
@@ -18,9 +19,6 @@ function Comment() {
       let inputValue = e.target.value
       setValue(inputValue)
     }
-
-
-    
 
     console.log("props in Comment.js", postId)
 
@@ -62,36 +60,39 @@ function Comment() {
             console.error("Error adding document: ", e);
           }
 
-          //setData("");
+          setValue("");
         
       }
     
-
-
     console.log("data value..", typeof sdata)
     if (postId !== undefined && sdata) {
         //  const { unsplashImages } = data;
         // console.log(data);
 
         return (
-            <div id = {Math.random()}>
+            <div id={Math.random()}>
 
-                {sdata.map((post, index) => {
+                {sdata.map((post,index) => {
                     return (
-                        <div id = {index} className='card' key={index}>
-                            <div id = {index} className='card-body'>
+                        <div id = { index } className='card' key={index} >
+                            <div className='card-body' >
+                                <text color='white'>
                                Title: {post.title}
+                               </text>
                                 <br /> 
                                 {post.description}
                                 <br />
                                 <br />
+                                <Center>
+                                    <Image src={post.newUrl ? post.newUrl : noImage} alt="Post image" boxSize='400px' />
+                                </Center>
                                 {/*  <img className='card' src={image.url} alt={image.id} /> */}
                                 <h2 className='card-title'>
                                     {/*  An image by: {image.posterName}  */}
                                 </h2>
-                                <Text id = {index} className="comment" mb="8px">Post a Comment</Text>
+                                <Text color='white' className="comment" mb="8px">Post a Comment</Text>
                                 <Textarea
-                                    id = {index}
+                                color='white'
                                     value={value}
                                     onChange={handleInputChange}
                                     placeholder="Post a comment"
@@ -99,9 +100,11 @@ function Comment() {
                                 />
                                {/*  <Button type = "submit">comment</Button> */}
                                 <br />
-
+<br></br>
                                {/*  {!post.updatedAt && ( */}
                                     <Button
+                                        bg='#FF5700'
+                                        color='white'
                                         /* className='button' */
                                         type = "submit"
                                         onClick={() => {
@@ -109,7 +112,7 @@ function Comment() {
                                             //image.binned = false;
                                           }}
                                     >
-                                        comment
+                                        Comment
                                     </Button>
                               {/*   )
                                 } */}
@@ -128,8 +131,6 @@ function Comment() {
                 </div>
             </div>
         );
-
-
 
     } else if (loading) {
         return <div>Loading...</div>;

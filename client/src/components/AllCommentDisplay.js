@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import Post from "../components/Post";
 import { collection, getDocs, getFirestore, onSnapshot, query, orderBy, limit, where } from "firebase/firestore";
 import DeleteCommentModal from './modals/DeleteCommentModal';
-import db from "../lib/firebase";
+import { db } from "../lib/firebase";
 
 //const functions = require('firebase-functions');
 //const admin = require('firebase-admin');
@@ -73,19 +73,20 @@ function AllCommentDisplay() {
     <div>
    {/*  https://chakra-ui.com/docs/components/container */}
    
-      {<Container maxW="container.sm" centerContent p={8}>  
+   {<Container maxW="container.sm" centerContent p={8}>  
         <VStack spacing={8} w="100%">
           {comments.map((comment) => (
           /*   <Post post={post} key={post.id} /> */
             <HStack key={comment.id} w="100%" alignItems="flex-start">
             <Box bg="gray.100" p={4} rounded="md" w="100%">
-              <Text>{comment.comment}</Text>
+              <Text >{comment.comment}</Text>
               {/* <Text>{post.description}</Text> */}
-            </Box>
-          
-            <Button type = "submit">Reply</Button>            
+            </Box><Text>sd</Text>
+            <Button bg='rgb(200,200,200)' type = "submit">Reply</Button>            
           {/*   <Button type = "submit">Delete</Button>  */}
             <Button
+            bg='red'
+            color='white'
                  /*  className='button' */
                   onClick={() => {
                     handleOpenDeleteModal(comment);

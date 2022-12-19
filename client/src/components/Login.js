@@ -17,7 +17,7 @@ import {
 import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 //import db from "../lib/firebase";
-import db from "../lib/firebase";
+import { db } from "../lib/firebase";
 import { initializeApp } from "firebase/app";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 
@@ -52,7 +52,7 @@ const Login = () => {
 
   return (
     <>
-      <Button onClick={onOpen} colorScheme="blue" size="lg" margin="10px">
+      <Button onClick={onOpen} bg='#FF5700' color='white' size="lg" margin="10px">
         Login
       </Button>
 
