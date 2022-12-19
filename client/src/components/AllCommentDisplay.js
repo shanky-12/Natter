@@ -81,7 +81,7 @@ function AllCommentDisplay() {
             <Box bg="gray.100" p={4} rounded="md" w="100%">
               <Text >{comment.comment}</Text>
               {/* <Text>{post.description}</Text> */}
-            </Box><text>sd</text>
+            </Box><Text>sd</Text>
             <Button bg='rgb(200,200,200)' type = "submit">Reply</Button>            
           {/*   <Button type = "submit">Delete</Button>  */}
             <Button

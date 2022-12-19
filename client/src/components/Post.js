@@ -72,32 +72,37 @@
 
 // export default Post;
 
-import { Box, HStack, Text, Button, Image } from "@chakra-ui/react";
-import React from "react";
+import { Box, HStack, Text, Button,Flex, Image } from "@chakra-ui/react";
+import React, {useEffect, useState} from "react";
 import VoteButtons from "./VoteButtons";
 import { Link, useParams } from 'react-router-dom';
 // import gm from "gm";
-
+import noImage from '../img/download.jpeg'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import LiveChat from "./LiveChat";
 
 
 const Post = ({ post }) => {
-  const [url, setUrl] = React.useState(null);
-  console.log("loading post : ")
-  console.log(post)
 
-  // const modifyImage = (src) => {
-  //   gm(src)
-  //     .resize(400, 300)
-  //     .toBuffer((error, buffer) => {
-  //       if (error) {
-  //         console.error(error);
-  //       } else {
-  //         setUrl(`data:image/jpeg;base64,${buffer.toString('base64')}`);
-  //       }
-  //     });
-  //     return <Image src={url} alt="Post image" boxSize='300px' />
-  //     // return <img src={url} alt="Post image" boxSize="300px" />;
-  // }
+  const auth = getAuth();
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [name, setName] = useState("");
+  const [myKey,setMyKey]=useState(post.id);
+  const [url, setUrl] = React.useState(null);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setLoggedIn(true)
+        setName(user.displayName);
+        // ...
+      } else {
+        setLoggedIn(false)
+      }
+    });
+  });
+  // console.log("loading post : ")
+  // console.log(post)
   
 console.log("post val", post.id, post.id.toString())
   return (
@@ -108,13 +113,17 @@ console.log("post val", post.id, post.id.toString())
         <Text color='black' as='b'>{post.title}</Text>
         <Text color='black'>{post.description}</Text>
         {/* {gm(post.iurl)} */}
-        <Image src={post.iurl} color='black' alt="Image Broken" boxSize='300px' />
+        {/* <Image src={post.newUrl} color='black' alt="Image Broken" boxSize='300px' /> */}
+        <Image src= {post.newUrl ? post.newUrl : noImage} alt="Post image" boxSize='300px' />
         <Text color='black'>{post.createdAt}</Text>
       </Box>
      
       <Link to={"/posts/"+post.id.toString()}>
       <Button type = "submit" color='white' bg='#FF5700'>comment</Button>
       </Link>
+      <Flex>
+        {loggedIn ? <LiveChat myKey={myKey}postName={post.title} name={name} /> : ""}
+        </Flex>
     </HStack>
   );
 };

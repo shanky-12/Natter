@@ -61,6 +61,9 @@ const VoteButtons = ({ post }) => {
     }); */
     await setDoc(doc(db, "posts", post.id), {
       title: post.title,
+      description : post.description,
+      newUrl: post.newUrl,
+      userID: post.userID,
       upVotesCount,
       downVotesCount,
       createdAt: post.createdAt,

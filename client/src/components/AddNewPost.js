@@ -123,12 +123,14 @@ const AddNewPost = () => {
     
           console.log(downloadUrl);
           iurl = downloadUrl;
+          console.log("check iurl after download url : "+ fileName);
           console.log("check iurl after download url : "+ iurl);
+          
 
           // Send the iurl to the backend
           const response = await axios.get('http://localhost:3001/', {
             params: {
-              src: downloadUrl
+              src: iurl
             }
           });
 
@@ -142,7 +144,7 @@ const AddNewPost = () => {
             title: title,
             userID: uid,
             description: description,
-            iurl,
+            newUrl,
             upVotesCount: 0,
             downVotesCount: 0,
             createdAt: date.toUTCString(),
