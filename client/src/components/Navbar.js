@@ -45,13 +45,11 @@ const Navbar = () => {
 
 
   const logout = async () => {
-
     try{
       await signOut(auth)
     }catch(e){
       console.log(e)
     }
-    
   }
   
   return (

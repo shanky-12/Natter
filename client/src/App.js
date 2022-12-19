@@ -13,7 +13,6 @@ import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 //import AllPost from './components/AllPost';
 import AllPost from './components/AllPost';
 import Comment from './components/Comment';
-import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile';
 
@@ -35,9 +34,6 @@ function App() {
         <Route path='/' element={<AllPost/>}></Route>
         <Route path='/posts/:postnum' element={<Comment/>}></Route>
         <Route path='/profile' element={<Profile/>}></Route>
-        {/* <Route path='/home' element={<PrivateRoute />}>
-            <Route path='/home' element={<Home />} />
-          </Route> */}
       {/*   <Route path='/characters/page/:pagenum' element={<CharactersList />} /> 
         <Route path='/comics/page/:pagenum' element={<ComicsList />} /> 
         <Route path='/stories/page/:pagenum' element={<StoriesList />} />
