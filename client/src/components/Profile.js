@@ -32,8 +32,9 @@ import {
   import Register from "./Register";
   import { getAuth, onAuthStateChanged } from "firebase/auth";
   import { collection, getDocs, getFirestore, onSnapshot, query, orderBy, limit, where } from "firebase/firestore";
-  import db from "../lib/firebase";
+  import { db } from "../lib/firebase";
   import Post from "../components/Post";
+  
 
   
   const Profile = () => {
@@ -80,34 +81,35 @@ import {
       });
     return (
 
-   <Card align='center'>
-  <CardHeader>
-    <Heading size='md'>Display Name: {name}</Heading>
-    <br>
-    </br>
-    <Heading size='md'>Email: {email}</Heading>
-  </CardHeader>
-  <CardBody>
-    <Text>View a summary of all your posts</Text>
-  </CardBody>
-  <CardFooter>
-
-    <div>
-   {/*  https://chakra-ui.com/docs/components/container */}
-      {/* <Navbar /> */}
-      {<Container maxW="container.sm" centerContent p={8}>  
-        <VStack spacing={8} w="100%">
-          {posts.map((post) => (
-            <Post post={post} key={post.id} />
-            
-          ))}
-        {/* <Comments/> */}
-        </VStack>
-      </Container>
-      }
-      </div>
-  </CardFooter>
-</Card>
+      <Card align='center'>
+      <CardHeader>
+        <Heading size='md' color='white'>Display Name: {name}</Heading>
+        <br>
+        </br>
+        <Heading size='md'color='white'>Email: {email}</Heading>
+      </CardHeader>
+      <CardBody>
+        <Text color='white'>View a summary of all your posts</Text>
+      </CardBody>
+      <CardFooter>
+    
+        <div color="white">
+        <script src="https://www.gstatic.com/firebasejs/7.14.3/firebase-app.js"></script>
+       {/*  https://chakra-ui.com/docs/components/container */}
+          {/* <Navbar /> */}
+          {<Container maxW="container.sm" centerContent p={8}>  
+            <VStack spacing={8} w="100%">
+              {posts.map((post) => (
+                <Post post={post} key={post.id} />
+                
+              ))}
+            {/* <Comments/> */}
+            </VStack>
+          </Container>
+          }
+          </div>
+      </CardFooter>
+    </Card>
 
     );
   };
