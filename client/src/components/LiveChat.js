@@ -3,8 +3,6 @@ import io from 'socket.io-client';
 import '../App.css';
 import {
   Button,
-  FormControl,
-  FormLabel,
   Textarea,
   Drawer,
   DrawerBody,
@@ -35,8 +33,7 @@ const LiveChat = ({ myKey,postName,name }) => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io('/');
-    userjoin({myKey,name});
+    socketRef.current = io('http://localhost:3000');
     return () => {
       socketRef.current.disconnect();
     };
@@ -49,6 +46,7 @@ const LiveChat = ({ myKey,postName,name }) => {
       renderChat();
     });
     socketRef.current.on('user_join', function (data) {
+      alert(data);
       setChat([
         ...chat,
         {name: 'ChatBot', message: `${data} has joined the chat`},
@@ -62,7 +60,7 @@ const LiveChat = ({ myKey,postName,name }) => {
   }, [chat]);
 
   const userjoin = () => {
-    socketRef.current.emit('user_join',{room:postId,name:state.name});
+    socketRef.current.emit('user_join',{room:postId,name:name});
   };
 
   const onMessageSubmit = () => {
@@ -85,14 +83,18 @@ const LiveChat = ({ myKey,postName,name }) => {
   };
 
  
-  
+  const Opener= () =>{
+    onOpen();
+    userjoin();
+  }
+
 if (myKey !== undefined /*&& sdata*/) {
 
   return (
           
           <>
-      <Button  onClick={onOpen} variant="solid"> LiveChat </Button>
-          <Drawer isOpen={isOpen} onOpen={userjoin} placement="right" onClose={onClose}>
+      <Button  onClick={Opener} variant="solid"> LiveChat </Button>
+          <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
             <DrawerOverlay>
               <DrawerContent>
               <DrawerCloseButton />
