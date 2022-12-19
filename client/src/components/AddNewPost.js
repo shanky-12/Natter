@@ -56,6 +56,7 @@ import {db, auth, firebaseStorage} from "../lib/firebase"
 const AddNewPost = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [title, setTitle] = useState("");
+  const [community, setCommunity] = useState("");
   const [description, setDescription] = useState("");
   // const [imageUpload, setImageUpload] = useState("");
   const [imageFile, setImageFile] = useState(null);
@@ -144,6 +145,7 @@ const AddNewPost = () => {
             title: title,
             userID: uid,
             description: description,
+            community: community,
             newUrl,
             upVotesCount: 0,
             downVotesCount: 0,
@@ -207,6 +209,19 @@ const AddNewPost = () => {
                   onChange={(e) => setImageFile(e.target.files[0])}
                 />
               </FormControl>
+
+              <FormControl isRequired id="post-description">
+                <FormLabel>Community</FormLabel>
+                <Textarea
+                  type="post-description"
+                  placeholder="Enter Community"
+                  value={community}
+                  onChange={(e) => setCommunity(e.target.value)}
+                />
+              </FormControl>
+              
+
+              
             </ModalBody>
             <ModalFooter color='white' bg="rgb(33, 33, 33)">
               <HStack spacing={4}>

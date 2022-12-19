@@ -6,8 +6,8 @@ import Post from "../components/Post";
 import Community from "../components/Community";
 import { collection, getDocs, getFirestore, onSnapshot, query, orderBy, limit } from "firebase/firestore";
 //import Comments from '../components/Comments';
-import db from "../lib/firebase";
-
+// import db from "../lib/firebase";
+import {db, auth, firebaseStorage} from "../lib/firebase"
 //const functions = require('firebase-functions');
 //const admin = require('firebase-admin');
 
@@ -63,7 +63,7 @@ function AllCommunities() {
 
   return (
     <>
-    <div>
+    <div className='homePage'>
    {/*  https://chakra-ui.com/docs/components/container */}
       {/* <Navbar /> */}
       <Heading>

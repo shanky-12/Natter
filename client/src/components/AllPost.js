@@ -1,9 +1,10 @@
 import '../App.css';
+import { Link, useParams } from 'react-router-dom';
 import { Container, Flex, Spinner, VStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Post from "../components/Post";
-import { collection, getDocs, getFirestore, onSnapshot, query, orderBy, limit } from "firebase/firestore";
+import { collection, getDocs, getFirestore, onSnapshot, query, orderBy, limit, where } from "firebase/firestore";
 //import Comments from '../components/Comments';
 // import db from "../lib/firebase";
 import {db, auth, firebaseStorage} from "../lib/firebase"
@@ -13,13 +14,14 @@ import {db, auth, firebaseStorage} from "../lib/firebase"
 //admin.initializeApp();
 
 function AllPost() {
+  let postId = useParams().postnum
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
   console.log('FirebaseOptions');
  
   async function fetchPost() {
     //const querySnapshot = await getDocs(collection(db, "posts").orderBy("createdAt", "desc").limit(5));
-    const querySnapshot = await getDocs(query(collection(db, "posts") , orderBy("createdAt", "desc"), limit(5)));
+    const querySnapshot = await getDocs(query(collection(db, "posts"), where("communityID", "==", postId), orderBy("createdAt", "desc"), limit(5)));
     //console.log('querySnapshot', querySnapshot);
     //console.log('querySnapshot-next', querySnapshot.query._query.limit);
     const data = querySnapshot.docs.map((doc) => ({
@@ -35,7 +37,7 @@ function AllPost() {
   }, [])
 
   useEffect(() => {
-    const q = query(collection(db, "posts") , orderBy("createdAt", "desc"), limit(5));
+    const q = query(collection(db, "posts") , orderBy("createdAt", "desc"), where("communityID", "==", postId), limit(5));
     
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const _posts = [];

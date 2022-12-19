@@ -1,28 +1,47 @@
+
+
 import { Box, HStack, Text, Button, Image } from "@chakra-ui/react";
 import React from "react";
 import VoteButtons from "./VoteButtons";
 import { Link, useParams } from 'react-router-dom';
+// import gm from "gm";
 import noImage from '../img/download.jpeg'
-const Community = ({ post }) => {
 
+
+const Community = ({ post }) => {
+  const [url, setUrl] = React.useState(null);
+  console.log("loading post : ")
+  console.log(post)
+  
 console.log("post val", post.id, post.id.toString())
   return (
     <HStack key={post.id} w="100%" alignItems="flex-start">
       <VoteButtons post={post} />
-      <Box bg="gray.100" p={4} rounded="md" w="100%">
+      <Box bg="rgb(200,200,200)" p={4} rounded="md" w="100%">
      
-        <Text as='b'>{post.title}</Text>
-        <Text>{post.description}</Text>
-        {/* {post.iurl ? <Image src={post.url} alt="Post image" boxSize='300px' /> :  <Image src={noImage} alt="Post image" boxSize='300px' />} */}
-        {/* <Image src={post.iurl} alt="Post image" boxSize='300px' /> */}
-        <Text>{post.createdAt}</Text>
+        <Text color='black' as='b'>{post.title}</Text>
+        <Text color='black'>{post.description}</Text>
+        {/* {gm(post.iurl)} */}
+        {/* <Image src={post.newUrl} color='black' alt="Image Broken" boxSize='300px' /> */}
+        {/* <Image src= {post.newUrl ? post.newUrl : noImage} alt="Post image" boxSize='300px' /> */}
+        <Text color='black'>{post.createdAt}</Text>
       </Box>
      
-      {/* <Link to={"/posts/"+post.id.toString()}>
-      <Button type = "submit">comment</Button>
-      </Link> */}
+      <Link to={"/allposts/"+post.id.toString()}>
+      <Button type = "submit" color='white' bg='#FF5700'>Go to</Button>
+      </Link>
     </HStack>
   );
 };
 
 export default Community;
+
+// import React from 'react';
+
+// function Image({imageId}) {
+//   return (
+//     <img src={`/image/${imageId}`} alt="Image" />
+//   );
+// }
+
+// export default Image;
