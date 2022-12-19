@@ -50,17 +50,13 @@ const VoteButtons = ({ post }) => {
       downVotesCount = downVotesCount + 1;
     }
 
-    console.log("post.id", post.id, upVotesCount)
-    //await db.collection("posts").doc(post.id).set({
-    /* await getDocs(collection(db, "posts")).doc(post.id).set({
-      title: post.title,
-      upVotesCount,
-      downVotesCount,
-      createdAt: post.createdAt,
-      updatedAt: date.toUTCString(),
-    }); */
+    //console.log("post.id", post.id, upVotesCount)
+   
     await setDoc(doc(db, "posts", post.id), {
       title: post.title,
+      description : post.description,
+      iurl: post.iurl,
+      userID: post.userID,
       upVotesCount,
       downVotesCount,
       createdAt: post.createdAt,

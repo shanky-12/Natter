@@ -74,12 +74,12 @@ function Comment() {
         // console.log(data);
 
         return (
-            <div>
+            <div id = {Math.random()}>
 
-                {sdata.map((post) => {
+                {sdata.map((post, index) => {
                     return (
-                        <div className='card' key={post.id}>
-                            <div className='card-body'>
+                        <div id = {index} className='card' key={index}>
+                            <div id = {index} className='card-body'>
                                Title: {post.title}
                                 <br /> 
                                 {post.description}
@@ -89,8 +89,9 @@ function Comment() {
                                 <h2 className='card-title'>
                                     {/*  An image by: {image.posterName}  */}
                                 </h2>
-                                <Text className="comment" mb="8px">Post a Comment</Text>
+                                <Text id = {index} className="comment" mb="8px">Post a Comment</Text>
                                 <Textarea
+                                    id = {index}
                                     value={value}
                                     onChange={handleInputChange}
                                     placeholder="Post a comment"
