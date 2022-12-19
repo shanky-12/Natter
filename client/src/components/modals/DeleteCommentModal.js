@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import '../../App.css';
 import ReactModal from 'react-modal';
 import { doc, deleteDoc } from "firebase/firestore";
-import db from "../../lib/firebase";
+import { db } from "../../lib/firebase";
 
 //For react-modal
 ReactModal.setAppElement('#root');

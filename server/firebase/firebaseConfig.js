@@ -1,8 +1,10 @@
-//import firebase from "./firebase";
-
+// import initializeApp from 'firebase/app';
+// import getFirestore from 'firebase/firestore';
+// // import getAuth from 'firebase/auth';
+// import getStorage from 'firebase/storage';
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { getAuth } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
 import {getStorage} from "firebase/storage";
 
 const firebaseConfig = {
@@ -22,30 +24,11 @@ const firebaseConfig = {
   // measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 console.log(firebaseConfig.apiKey)
-/* const initializeAppIfNecessary = () => {
-    try {
-      return getApp()
-    } catch {
-      return initializeApp(firebaseConfig)
-    }
-  } */
-  //console.log('FirebaseOptions',FirebaseOptions);
 
-  //let app = initializeAppIfNecessary()
-  const app = initializeApp(firebaseConfig);
-  const firebaseStorage = getStorage(app)
-//  const clientAuth = getAuth(app)
+const app = initializeApp(firebaseConfig);
+const firebaseStorage = getStorage(app)
 
-//const initFirebase = firebase.initializeApp(firebaseConfig);
-
-//admin.initializeApp();
-
-//const initFirebase = initializeAppIfNecessary();
-
-//export const auth = getAuth(initFirebase);
-
-//const db = initFirebase.firestore();
-const auth = getAuth(app);
+// const auth = getAuth(app);
 const db = getFirestore(app);//.firestore();
 
 
@@ -57,4 +40,4 @@ const db = getFirestore(app);//.firestore();
 // export default db;
 
 export default app;
-export { db, auth, firebaseStorage};
+export { db, firebaseStorage};
