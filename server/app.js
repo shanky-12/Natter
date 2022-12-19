@@ -6,15 +6,15 @@ var io = require('socket.io')(http);
 io.on('connection', (socket) => {
   console.log('new client connected', socket.id);
 
-  socket.on('user_join', (room,name) => {
+  socket.on('user_join', ({room,name}) => {
     socket.join(room);
     console.log('A user joined their name is ' + name);
-    socket.broadcast.to(room).emit('user_join', name);
+    io.sockets.in(room).emit('user_join', name);
   });
 
   socket.on('message', ({room,name, message}) => {
     console.log(name, message, room);
-    socket.broadcast.to(room).emit('message', {name, message});
+    io.sockets.in(room).emit('message', {name, message});
   });
 
   socket.on('disconnect', () => {
