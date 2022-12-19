@@ -76,7 +76,7 @@ const Login = () => {
               <FormControl isRequired id="post-title" >
                 <FormLabel>Password</FormLabel>
                 <Input
-                  type="post-title"
+                  type="password"
                   placeholder='Enter password'
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

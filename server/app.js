@@ -12,8 +12,8 @@ io.on('connection', (socket) => {
     socket.broadcast.to(room).emit('user_join', name);
   });
 
-  socket.on('message', ({name, message}) => {
-    console.log(name, message, socket.id);
+  socket.on('message', ({room,name, message}) => {
+    console.log(name, message, room);
     socket.broadcast.to(room).emit('message', {name, message});
   });
 
@@ -30,6 +30,6 @@ async function addMessage(name,message,socketID){
   }
 }
 
-http.listen(4000, () => {
-  console.log(`listening on *:${4000}`);
+http.listen(3000, () => {
+  console.log(`listening on *:${3000}`);
 });

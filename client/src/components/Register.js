@@ -90,7 +90,7 @@ const Register = () => {
               <FormControl isRequired id="post-title">
                 <FormLabel>Password</FormLabel>
                 <Input
-                  type="post-title"
+                  type="password"
                   placeholder="Enter password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -100,7 +100,7 @@ const Register = () => {
               <FormControl isRequired id="post-title">
                 <FormLabel>Confirm Password</FormLabel>
                 <Input
-                  type="post-title"
+                  type="password"
                   placeholder="Enter password"
                   value={passwordC}
                   onChange={(e) => setPasswordC(e.target.value)}

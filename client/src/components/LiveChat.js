@@ -30,12 +30,13 @@ const LiveChat = ({ myKey,postName,name }) => {
   const auth = getAuth();
   let postId = myKey;
   const [state, setState] = useState({message: '', name: name});
-  const [chat, setChat] = useState([]);
+  const [chat, setChat] = useState([{name: 'ChatBot', message: `${name} has joined the chat`}]);
 
   const socketRef = useRef();
 
   useEffect(() => {
     socketRef.current = io('/');
+    userjoin({myKey,name});
     return () => {
       socketRef.current.disconnect();
     };
@@ -45,6 +46,7 @@ const LiveChat = ({ myKey,postName,name }) => {
     socketRef.current.on('message', ({name, message}) => {
       console.log('The server has sent some data to all clients');
       setChat([...chat, {name, message}]);
+      renderChat();
     });
     socketRef.current.on('user_join', function (data) {
       setChat([
@@ -59,30 +61,29 @@ const LiveChat = ({ myKey,postName,name }) => {
     };
   }, [chat]);
 
-  const userjoin = (name) => {
-    socketRef.current.emit('user_join',{room:postId,name:name});
+  const userjoin = () => {
+    socketRef.current.emit('user_join',{room:postId,name:state.name});
   };
 
-  const onMessageSubmit = (e) => {
+  const onMessageSubmit = () => {
     socketRef.current.emit('message', {
       room:postId,
       name: state.name,
       message: state.message,
     });
-    e.preventDefault();
     setState({message: '', name: state.name});
   };
 
   const renderChat = () => {
-    userjoin(state.name);
     return chat.map(({name, message}, index) => (
       <div key={index}>
-        <h3>
+        <Text size='sm'>
           {name}: <span>{message}</span>
-        </h3>
+        </Text>
       </div>
     ));
   };
+
  
   
 if (myKey !== undefined /*&& sdata*/) {
@@ -91,7 +92,7 @@ if (myKey !== undefined /*&& sdata*/) {
           
           <>
       <Button  onClick={onOpen} variant="solid"> LiveChat </Button>
-          <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+          <Drawer isOpen={isOpen} onOpen={userjoin} placement="right" onClose={onClose}>
             <DrawerOverlay>
               <DrawerContent>
               <DrawerCloseButton />
@@ -103,24 +104,22 @@ if (myKey !== undefined /*&& sdata*/) {
                 <Stack divider={<StackDivider />} spacing='4'>
                   <Box>
                     <Heading size='md'>Chat Log</Heading>
-                    <Text></Text>
+                    {renderChat()}
                   </Box>
                   </Stack>
                 </CardBody>
               </Card>
-                <div className='render-chat'>
-                <h1>Chat Log</h1>
-                </div>
                 
               </DrawerBody>
               <DrawerFooter>
                 <Textarea
                   placeholder='Type Here'
+                  value={state.message}
                   size='sm'
                   resize='verticle'
-                  onChange={(e) => setState({message:e.target.value})}
+                  onChange={(e)=>setState({message:e.target.value,name:name})}
                 />
-                <Button onClick={onMessageSubmit} colorScheme="blue">Send</Button>
+                <Button onClick={onMessageSubmit} colorScheme="blue" type='submit'>Send</Button>
               </DrawerFooter>
                 
               </DrawerContent>

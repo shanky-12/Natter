@@ -37,7 +37,7 @@ console.log("post val", post.id, post.id.toString(), "logged in "+loggedIn)
       </Box>
      
       <Link to={"/posts/"+post.id.toString()}>
-      <Button type = "submit">comment</Button>
+      <Button type = "submit">{myKey}</Button>
       </Link>
       <Flex>
         {loggedIn ? <LiveChat myKey={myKey}postName={post.title} name={name} /> : ""}
