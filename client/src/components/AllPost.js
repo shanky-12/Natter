@@ -1,9 +1,9 @@
 import '../App.css';
-import { Container, Flex, Spinner, VStack } from "@chakra-ui/react";
+import { Container, Flex, Spinner, VStack,Button } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Post from "../components/Post";
-import { collection, getDocs, getFirestore, onSnapshot, query, orderBy, limit } from "firebase/firestore";
+import { collection, getDocs, getFirestore, onSnapshot, query, orderBy, limit, startAfter } from "firebase/firestore";
 //import Comments from '../components/Comments';
 import db from "../lib/firebase";
 
@@ -15,8 +15,11 @@ import db from "../lib/firebase";
 function AllPost() {
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [lastVis,setLastVis]=useState({});
   console.log('FirebaseOptions');
  
+  //for pagenation
+  //https://firebase.google.com/docs/firestore/query-data/query-cursors
   async function fetchPost() {
     //const querySnapshot = await getDocs(collection(db, "posts").orderBy("createdAt", "desc").limit(5));
     const querySnapshot = await getDocs(query(collection(db, "posts") , orderBy("createdAt", "desc"), limit(5)));
@@ -26,6 +29,9 @@ function AllPost() {
       id: doc.id,
       ...doc.data(),
     }));
+    // setLastVis(querySnapshot.docs[querySnapshot.docs.length-1]);
+    // console.log("lastvis "+lastVis.id);
+    // alert(lastVis);
     setPosts(data);
     setLoading(false);
   }
@@ -37,6 +43,7 @@ function AllPost() {
   useEffect(() => {
     const q = query(collection(db, "posts") , orderBy("createdAt", "desc"), limit(5));
     
+
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const _posts = [];
       querySnapshot.forEach((doc) => {
@@ -46,6 +53,7 @@ function AllPost() {
         });
         
       });
+    
       setPosts(_posts);
       console.log("Current posts details: ", posts.join(", "));
     });
@@ -73,6 +81,7 @@ function AllPost() {
           ))}
         {/* <Comments/> */}
         </VStack>
+        <Button>Next</Button>
       </Container>
       }
       </div>

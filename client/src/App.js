@@ -16,6 +16,7 @@ import Comment from './components/Comment';
 import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile';
+import LiveChat from './components/LiveChat';
 
 
 
@@ -34,6 +35,7 @@ function App() {
        {/*  <Route exact path='/' component={Home} /> */}
         <Route path='/' element={<AllPost/>}></Route>
         <Route path='/posts/:postnum' element={<Comment/>}></Route>
+        <Route path='/postChat/:postnum' element={<LiveChat/>}></Route>
         <Route path='/profile' element={<Profile/>}></Route>
         {/* <Route path='/home' element={<PrivateRoute />}>
             <Route path='/home' element={<Home />} />
