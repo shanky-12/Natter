@@ -22,6 +22,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import AddNewPost from "./AddNewPost";
+import AddNewCommunity from "./AddNewCommunity";
 import Login from "./Login";
 import Register from "./Register";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
@@ -79,9 +80,12 @@ const Navbar = () => {
 
         {loggedIn ? <AddNewPost /> : ""}
 
+        {loggedIn ? <AddNewCommunity /> : ""}
+
         {loggedIn ? <Button onClick={() => navigate('/profile')} colorScheme="blue" size="lg" margin="10px">
             Profile
         </Button> : <Register />}
+        
 
         {loggedIn ? <Button onClick={logout} colorScheme="blue" size="lg" margin="10px">
             Logout
