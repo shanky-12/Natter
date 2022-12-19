@@ -13,7 +13,8 @@ console.log("post val", post.id, post.id.toString())
      
         <Text as='b'>{post.title}</Text>
         <Text>{post.description}</Text>
-        {post.url ? <Image src={post.url} alt="Post image" boxSize='300px' /> :  <Image src={noImage} alt="Post image" boxSize='300px' />}
+        {/* {post.iurl ? <Image src={post.url} alt="Post image" boxSize='300px' /> :  <Image src={noImage} alt="Post image" boxSize='300px' />} */}
+        <Image src={post.iurl} alt="Post image" boxSize='300px' />
         <Text>{post.createdAt}</Text>
       </Box>
      
