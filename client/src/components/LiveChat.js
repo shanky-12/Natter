@@ -13,18 +13,22 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  useDisclosure
+  useDisclosure,
+  Card,
+  CardBody,
+  Stack,
+  StackDivider,
+  Box,
+  Heading,
+  Text
 } from "@chakra-ui/react";
 import { Link, useParams } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import db from "../lib/firebase";
-import Post from "../components/Post";
-import { collection, doc, getDoc,addDoc, getFirestore, onSnapshot, query, orderBy, limit } from "firebase/firestore";
 
-const LiveChat = ({ key,name }) => {
+const LiveChat = ({ myKey,postName,name }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const auth = getAuth();
-  let postId = key;
+  let postId = myKey;
   const [state, setState] = useState({message: '', name: name});
   const [chat, setChat] = useState([]);
 
@@ -36,21 +40,6 @@ const LiveChat = ({ key,name }) => {
       socketRef.current.disconnect();
     };
   }, []);
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-          setState({message: '', name: user.displayName});
-          // ...
-        } else {
-          // User is signed out
-          // ...
-          setState({message: '', name: ''});
-        }
-      });
-  });
 
   useEffect(() => {
     socketRef.current.on('message', ({name, message}) => {
@@ -75,18 +64,13 @@ const LiveChat = ({ key,name }) => {
   };
 
   const onMessageSubmit = (e) => {
-    let msgEle = document.getElementById('message');
-    console.log([msgEle.name], msgEle.value);
-    setState({...state, [msgEle.name]: msgEle.value});
     socketRef.current.emit('message', {
       room:postId,
       name: state.name,
-      message: msgEle.value,
+      message: state.message,
     });
     e.preventDefault();
     setState({message: '', name: state.name});
-    msgEle.value = '';
-    msgEle.focus();
   };
 
   const renderChat = () => {
@@ -99,36 +83,50 @@ const LiveChat = ({ key,name }) => {
       </div>
     ));
   };
+ 
   
-  if (postId !== undefined /*&& sdata*/) {
+if (myKey !== undefined /*&& sdata*/) {
 
   return (
-    
-      <div>
           
-          <Button  onClick={onOpen} variant="solid"> LiveChat</Button>
-          <Drawer isOpen={isOpen} placement="right"onClose={onClose}>
+          <>
+      <Button  onClick={onOpen} variant="solid"> LiveChat </Button>
+          <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
             <DrawerOverlay>
               <DrawerContent>
               <DrawerCloseButton />
-              <DrawerHeader>LiveChat for </DrawerHeader>
+              <DrawerHeader>LiveChat for {postName} </DrawerHeader>
 
               <DrawerBody>
+              <Card>
+                <CardBody>
+                <Stack divider={<StackDivider />} spacing='4'>
+                  <Box>
+                    <Heading size='md'>Chat Log</Heading>
+                    <Text></Text>
+                  </Box>
+                  </Stack>
+                </CardBody>
+              </Card>
                 <div className='render-chat'>
                 <h1>Chat Log</h1>
-                {renderChat()}
                 </div>
                 
               </DrawerBody>
               <DrawerFooter>
-                <FormControl>
-
-                </FormControl>
+                <Textarea
+                  placeholder='Type Here'
+                  size='sm'
+                  resize='verticle'
+                  onChange={(e) => setState({message:e.target.value})}
+                />
+                <Button onClick={onMessageSubmit} colorScheme="blue">Send</Button>
               </DrawerFooter>
                 
               </DrawerContent>
             </DrawerOverlay>
           </Drawer>
+    
           {/* {former&&(<div>
             <div className="chat-popup" id="myForm">
             <form onSubmit={onMessageSubmit} className="form-container">
@@ -145,10 +143,8 @@ const LiveChat = ({ key,name }) => {
               <Button onClick={onClose}>Close</Button>
             </form>
           </div></div>)} */}
-        
-        </div>
 
-    
+</>
   );
 }
 }

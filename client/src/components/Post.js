@@ -10,6 +10,7 @@ const Post = ({ post }) => {
   const auth = getAuth();
   const [loggedIn, setLoggedIn] = useState(false);
   const [name, setName] = useState("");
+  const [myKey,setMyKey]=useState(post.id);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -39,7 +40,7 @@ console.log("post val", post.id, post.id.toString(), "logged in "+loggedIn)
       <Button type = "submit">comment</Button>
       </Link>
       <Flex>
-        {loggedIn ? <LiveChat key={post.id} name={name} /> : ""}
+        {loggedIn ? <LiveChat myKey={myKey}postName={post.title} name={name} /> : ""}
         </Flex>
     </HStack>
   );
