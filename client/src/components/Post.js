@@ -103,20 +103,30 @@ console.log("post val", post.id, post.id.toString())
   return (
     <HStack key={post.id} w="100%" alignItems="flex-start">
       <VoteButtons post={post} />
-      <Box bg="gray.100" p={4} rounded="md" w="100%">
+      <Box bg="rgb(200,200,200)" p={4} rounded="md" w="100%">
      
-        <Text as='b'>{post.title}</Text>
-        <Text>{post.description}</Text>
+        <Text color='black' as='b'>{post.title}</Text>
+        <Text color='black'>{post.description}</Text>
         {/* {gm(post.iurl)} */}
-        <Image src={post.iurl} alt="Post Image" boxSize='300px' />
-        <Text>{post.createdAt}</Text>
+        <Image src={post.iurl} color='black' alt="Image Broken" boxSize='300px' />
+        <Text color='black'>{post.createdAt}</Text>
       </Box>
      
       <Link to={"/posts/"+post.id.toString()}>
-      <Button type = "submit">comment</Button>
+      <Button type = "submit" color='white' bg='#FF5700'>comment</Button>
       </Link>
     </HStack>
   );
 };
 
 export default Post;
+
+// import React from 'react';
+
+// function Image({imageId}) {
+//   return (
+//     <img src={`/image/${imageId}`} alt="Image" />
+//   );
+// }
+
+// export default Image;

@@ -19,6 +19,7 @@ import React, { useState, useEffect } from "react";
 // import storage from "../lib/firebase";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import axios from 'axios';
 
 
 //const app = initializeApp(firebaseConfig);
@@ -61,7 +62,7 @@ const AddNewPost = () => {
   const [uid, setUID] = useState("");
   const [isSaving, setSaving] = useState(false);
   const [percent, setPercent] = useState(0);
-  const [url, setUrl] = useState("");
+  const [iurl, setUrl] = useState("");
   const auth = getAuth();
 
   useEffect(() => {
@@ -76,7 +77,7 @@ const AddNewPost = () => {
   const handleSubmit = async () => {
     //const db = getFirestore(app);
     let iurl="";
-    console.log("db", db);
+    console.log("Check db : ", db);
     setSaving(true);
     const date = new Date();
     if (!imageFile) { // || !videoFile) {
@@ -88,11 +89,11 @@ const AddNewPost = () => {
       // const storage = firebase.storage();
       // Generate a unique file name for the uploaded image
       const fileName = `${date.getTime()}-${imageFile.name}`;
-      console.log("check1" + fileName)
+      console.log("check1 : " + fileName)
       console.log(firebaseStorage)
       // Create a reference to the location where the image will be stored
       const imageRef = ref(firebaseStorage, `images/${fileName}`)
-      console.log("check2" +imageRef)
+      console.log("check2 : " +imageRef)
       // await imageRef.put(imageFile);
       // iurl = await fileRef.getDownloadURL();
       // addDoc('posts', { title, description, iurl });
@@ -100,7 +101,11 @@ const AddNewPost = () => {
       // await imageRef.put(imageFile);
       // let imageUrl;
       
+
       // const uploadTask = imageRef.put(imageFile);
+      // call server express route with image blob or binary in post request
+      //on server request process gm resize and forwrad that to firbase upload
+      // return upload scuess and image url to client
       const uploadTask = uploadBytesResumable(imageRef, imageFile);
       uploadTask.on(
           "state_changed",
@@ -108,21 +113,31 @@ const AddNewPost = () => {
           const percent = Math.round(
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         );
-        
         // update progress
         setPercent(percent);
         },
         (err) => console.log(err),
           async () => {
-// download url
+          // download url
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadUrl) => {
-          //imageUrl = url;
-          // if(url) {
-          // imageUrl = url ? url : 'http://placeholder.com';}
+    
           console.log(downloadUrl);
-          
           iurl = downloadUrl;
-          setUrl(downloadUrl)
+          console.log("check iurl after download url : "+ iurl);
+
+          // Send the iurl to the backend
+          const response = await axios.get('http://localhost:3001/', {
+            params: {
+              src: downloadUrl
+            }
+          });
+
+          // Get the new URL from the response
+          const newUrl = response.data;
+          console.log("Response Url : " + newUrl)
+          
+          setUrl(iurl)
+
           const docRef = await addDoc(collection(db, "posts"), {
             title: title,
             userID: uid,
@@ -133,17 +148,10 @@ const AddNewPost = () => {
             createdAt: date.toUTCString(),
             updatedAt: date.toUTCString(),
           });
-    
           console.log("Document written with ID: ", docRef.id);
-          
-          console.log(iurl);
           });
-          console.log(iurl);
-          
         
     })
-        console.log(iurl);
-        console.log("image url by aditi " + iurl);
       
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -159,16 +167,16 @@ const AddNewPost = () => {
 
   return (
     <>
-      <Button onClick={onOpen} variant="solid" colorScheme="green" size="xxlg">
+      <Button w='20%' onClick={onOpen} variant="solid" bg="#FF5700" color='white' size='lg' height='50px'>
         Add new post
       </Button>
 
       <Modal onClose={onClose} size="xl" isOpen={isOpen} isCentered>
         <ModalOverlay>
           <ModalContent>
-            <ModalHeader>Add new post</ModalHeader>
+            <ModalHeader color='white' bg="#FF5700">Add new post</ModalHeader>
             <ModalCloseButton />
-            <ModalBody>
+            <ModalBody color='white' bg ='rgb(33, 33, 33)'>
               <FormControl isRequired id="post-title">
                 <FormLabel>Post title</FormLabel>
                 <Input
@@ -198,12 +206,15 @@ const AddNewPost = () => {
                 />
               </FormControl>
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter color='white' bg="rgb(33, 33, 33)">
               <HStack spacing={4}>
-                <Button onClick={onClose}>Close</Button>
+                <Button onClick={onClose} borderColor='white' borderWidth='0.5px' bg='red' color= 'white'>Close</Button>
                 <Button
+                  borderColor='white' 
+                  borderWidth='0.5px'
                   onClick={handleSubmit}
-                  colorScheme="blue"
+                  bg='green'
+                  color='white'
                   disabled={!title.trim() && !description.trim()}
                   isLoading={isSaving}
                 >

@@ -62,7 +62,7 @@ function AllPost() {
 
   return (
     <>
-    <div>
+    <div className='homePage'>
    {/*  https://chakra-ui.com/docs/components/container */}
       {/* <Navbar /> */}
       {<Container maxW="container.sm" centerContent p={8}>  

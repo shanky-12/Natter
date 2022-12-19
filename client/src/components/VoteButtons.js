@@ -82,20 +82,27 @@ const VoteButtons = ({ post }) => {
   return (
     <>
       <VStack>
-        <IconButton
+        
+        <Text bg="#FF5700" rounded="md" align='center' fontSize='2xl' height='48px' color='white' width='48px' p={1} >
+          <b>{post.upVotesCount}</b>
+        </Text>
+
+        <Text bg="#FF5700" rounded="md" height='48px' fontSize='2xl' width='48px' color='white' p={1}>
+        <b>{post.downVotesCount}</b>
+        </Text>
+      </VStack>
+      <VStack>
+      <IconButton
           size="lg"
           colorScheme="green"
           aria-label="Upvote"
           icon={<FiArrowUp />}
           onClick={() => handleClick("upvote")}
           isLoading={isVoting}
-          /* isDisabled={checkIfPostIsAlreadyVoted()} */
+
+
+          isDisabled={checkIfPostIsAlreadyVoted()}
         />
-        <Text bg="gray.100" rounded="md" w="100%" p={1}>
-          {post.upVotesCount}
-        </Text>
-      </VStack>
-      <VStack>
         <IconButton
           size="lg"
           colorScheme="red"
@@ -103,11 +110,9 @@ const VoteButtons = ({ post }) => {
           icon={<FiArrowDown />}
           onClick={() => handleClick("downvote")}
           isLoading={isVoting}
-         /*  isDisabled={checkIfPostIsAlreadyVoted()} */
+         isDisabled={checkIfPostIsAlreadyVoted()}
         />
-        <Text bg="gray.100" rounded="md" w="100%" p={1}>
-          {post.downVotesCount}
-        </Text>
+        
       </VStack>
     </>
   );

@@ -78,9 +78,11 @@ function Comment() {
 
                 {sdata.map((post) => {
                     return (
-                        <div className='card' key={post.id}>
-                            <div className='card-body'>
+                        <div className='card' key={post.id} >
+                            <div className='card-body' >
+                                <text color='white'>
                                Title: {post.title}
+                               </text>
                                 <br /> 
                                 {post.description}
                                 <br />
@@ -89,8 +91,9 @@ function Comment() {
                                 <h2 className='card-title'>
                                     {/*  An image by: {image.posterName}  */}
                                 </h2>
-                                <Text className="comment" mb="8px">Post a Comment</Text>
+                                <Text color='white' className="comment" mb="8px">Post a Comment</Text>
                                 <Textarea
+                                color='white'
                                     value={value}
                                     onChange={handleInputChange}
                                     placeholder="Post a comment"
@@ -98,9 +101,11 @@ function Comment() {
                                 />
                                {/*  <Button type = "submit">comment</Button> */}
                                 <br />
-
+<br></br>
                                {/*  {!post.updatedAt && ( */}
                                     <Button
+                                        bg='#FF5700'
+                                        color='white'
                                         /* className='button' */
                                         type = "submit"
                                         onClick={() => {
@@ -108,7 +113,7 @@ function Comment() {
                                             //image.binned = false;
                                           }}
                                     >
-                                        comment
+                                        Comment
                                     </Button>
                               {/*   )
                                 } */}
