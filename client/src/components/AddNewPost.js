@@ -139,7 +139,7 @@ const AddNewPost = () => {
           //   }
           // });
 
-          // // Get the new URL from the response
+          // Get the new URL from the response
           // const newUrl = response.data;
           // console.log("Response Url : " + newUrl)
           
@@ -160,10 +160,10 @@ const AddNewPost = () => {
               src: iurl
             }
           });
-          const newUrl = iurl;
+          //const newUrl = iurl;
           // Get the new URL from the response
-          // const newUrl = response.data;
-          // console.log("Response Url : " + newUrl)
+          const newUrl = response.data;
+          console.log("Response Url : " + newUrl)
           
           setUrl(iurl)
 

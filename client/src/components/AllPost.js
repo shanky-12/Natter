@@ -57,7 +57,7 @@ function AllPost() {
 //
   useEffect(() => {
     fetchPost();
-  }, [])
+  },[])
 
   // useEffect(() => {
   //   const q = query(collection(db, "posts") , orderBy("createdAt", "desc"), where("community", "==", postId));
