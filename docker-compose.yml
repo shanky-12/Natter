@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  client:
+    build: ./client
+    container_name: client
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $NODE_CLIENT_LOCAL_PORT:$NODE_CLIENT_DOCKER_PORT
+    stdin_open: true
+    tty: true
+  server:
+    container_name: server
+    build: ./server
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - $NODE_SERVER_LOCAL_PORT:$NODE_SERVER_DOCKER_PORT
+    stdin_open: true
+    tty: true
