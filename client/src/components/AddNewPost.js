@@ -139,7 +139,7 @@ const AddNewPost = () => {
           //   }
           // });
 
-          // // Get the new URL from the response
+          // Get the new URL from the response
           // const newUrl = response.data;
           // console.log("Response Url : " + newUrl)
           
@@ -162,9 +162,9 @@ const AddNewPost = () => {
           }); */
           const newUrl = iurl;
           // Get the new URL from the response
-          // const newUrl = response.data;
-          // console.log("Response Url : " + newUrl)
-          
+         /*  const newUrl = response.data;
+          console.log("Response Url : " + newUrl)
+           */
           setUrl(iurl)
 
           const docRef = await addDoc(collection(db, "posts"), {
