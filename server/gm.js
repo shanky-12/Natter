@@ -3,7 +3,8 @@ import express from 'express';
 import request from 'request';
 import gm from 'gm';
 // import { storage } from 'firebase-admin';
-import { db, firebaseStorage } from './firebase/firebaseConfig.js';
+// import { db, firebaseStorage } from '/Users/shankytyagi/Desktop/Natter-Aditi-2/server/firebase/firebaseConfig.js';
+import { firebaseStorage } from './firebase/firebaseConfig.js';
 import {ref,updateMetadata, uploadBytesResumable,getDownloadURL} from "firebase/storage"
 const app = express();
 
@@ -49,7 +50,7 @@ app.get('/', async (req, res) => {
   });
 });
 
-const port = 3001;
+const port = 3002;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });

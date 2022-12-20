@@ -33,7 +33,7 @@ const LiveChat = ({ myKey,postName,name }) => {
   const socketRef = useRef();
 
   useEffect(() => {
-    socketRef.current = io('http://localhost:3000');
+    socketRef.current = io('http://localhost:3001');
     return () => {
       socketRef.current.disconnect();
     };

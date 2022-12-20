@@ -155,16 +155,15 @@ const AddNewPost = () => {
           const comm = docSnap2.data().title;
 
           // Send the iurl to the backend
-        /*   const response = await axios.get('http://localhost:3001/', {
+           const response = await axios.get('http://localhost:3002/', {
             params: {
               src: iurl
             }
-          }); */
-          const newUrl = iurl;
+          });
+          // const newUrl = iurl;
           // Get the new URL from the response
-         /*  const newUrl = response.data;
+         const newUrl = response.data;
           console.log("Response Url : " + newUrl)
-           */
           setUrl(iurl)
 
           const docRef = await addDoc(collection(db, "posts"), {
