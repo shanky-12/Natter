@@ -44,7 +44,7 @@ function AllPost() {
     fetchPost();
   }, [])
 
-  useEffect(() => {
+  const postSetter=()=>{
     const q = query(collection(db, "posts") , orderBy("createdAt", "desc"), limit(5));
     
 
@@ -61,6 +61,10 @@ function AllPost() {
       setPosts(_posts);
       console.log("Current posts details: ", curPosts.join(", "));
     });
+  }
+
+  useEffect(() => {
+    postSetter();
 
   }, []);
   const nextSet=()=>{

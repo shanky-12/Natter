@@ -18,7 +18,8 @@ import {
   StackDivider,
   Box,
   Heading,
-  Text
+  Text,
+  Spinner
 } from "@chakra-ui/react";
 import { Link, useParams } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -28,7 +29,8 @@ const LiveChat = ({ myKey,postName,name }) => {
   const auth = getAuth();
   let postId = myKey;
   const [state, setState] = useState({message: '', name: name});
-  const [chat, setChat] = useState([{name: 'ChatBot', message: `${name} has joined the chat`}]);
+  const [chat, setChat] = useState([{message: `Welcome to ${postName}'s Chat`, name: 'ChatBot'}]);
+  const [loading,setLoading]=useState(true);
 
   const socketRef = useRef();
 
@@ -46,7 +48,7 @@ const LiveChat = ({ myKey,postName,name }) => {
       renderChat();
     });
     socketRef.current.on('user_join', function (data) {
-      alert(data);
+      setLoading(false);
       setChat([
         ...chat,
         {name: 'ChatBot', message: `${data} has joined the chat`},
@@ -119,9 +121,11 @@ if (myKey !== undefined /*&& sdata*/) {
                   value={state.message}
                   size='sm'
                   resize='verticle'
+                  isDisabled={loading}
                   onChange={(e)=>setState({message:e.target.value,name:name})}
                 />
-                <Button onClick={onMessageSubmit} colorScheme="blue" type='submit'>Send</Button>
+                <Button hidden={!loading}><Spinner></Spinner></Button>
+                <Button hidden={loading}onClick={onMessageSubmit} colorScheme="blue" type='submit'>Send</Button>
               </DrawerFooter>
                 
               </DrawerContent>
