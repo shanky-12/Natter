@@ -1,5 +1,5 @@
 import '../App.css';
-import { Container, Flex, Spinner, VStack,Button } from "@chakra-ui/react";
+import { Container, Flex, Spinner, VStack,Button, HStack, Show } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Post from "../components/Post";
@@ -13,9 +13,13 @@ import db from "../lib/firebase";
 //admin.initializeApp();
 
 function AllPost() {
-  const [posts, setPosts] = useState([]);
+  const [curPosts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const [notPrev, setPrev] = useState(true);
+  const [notNext, setNext] = useState(false);
   const [lastVis,setLastVis]=useState({});
+  const [firstVis,setfirstVis]=useState({});
+  const [offset,setOffset]=useState(0);
   console.log('FirebaseOptions');
  
   //for pagenation
@@ -29,8 +33,8 @@ function AllPost() {
       id: doc.id,
       ...doc.data(),
     }));
-    // setLastVis(querySnapshot.docs[querySnapshot.docs.length-1]);
-    // console.log("lastvis "+lastVis.id);
+    setLastVis(querySnapshot.docs[querySnapshot.docs.length-1]);
+    console.log("lastvis "+lastVis.id);
     // alert(lastVis);
     setPosts(data);
     setLoading(false);
@@ -55,10 +59,16 @@ function AllPost() {
       });
     
       setPosts(_posts);
-      console.log("Current posts details: ", posts.join(", "));
+      console.log("Current posts details: ", curPosts.join(", "));
     });
 
   }, []);
+  const nextSet=()=>{
+
+  }
+  const prevSet=()=>{
+    
+  }
 
        if (isLoading) {
         return (
@@ -75,13 +85,17 @@ function AllPost() {
       {/* <Navbar /> */}
       {<Container maxW="container.sm" centerContent p={8}>  
         <VStack spacing={8} w="100%">
-          {posts.map((post) => (
+          {curPosts.map((post) => (
             <Post post={post} key={post.id} />
             
           ))}
         {/* <Comments/> */}
         </VStack>
-        <Button>Next</Button>
+        <HStack
+        align='stretch'>
+            <Button hidden={notPrev} position= 'absolute'  left= '32px' bottom='16px' size='lg' onClick={nextSet}>Prev</Button>
+            <Button hidden={notNext} position= 'absolute'  right= '32px' bottom='16px' size='lg'onClick={prevSet}>Next</Button>
+        </HStack>
       </Container>
       }
       </div>

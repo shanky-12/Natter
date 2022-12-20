@@ -127,23 +127,6 @@ if (myKey !== undefined /*&& sdata*/) {
               </DrawerContent>
             </DrawerOverlay>
           </Drawer>
-    
-          {/* {former&&(<div>
-            <div className="chat-popup" id="myForm">
-            <form onSubmit={onMessageSubmit} className="form-container">
-              <h1>Messenger</h1>
-              <div>
-                <Textarea placeholder="Type message.."
-                  name='message'
-                  id='message'
-                  variant='outlined'
-                  label='Message'
-                />
-              </div>
-              <Button className="btn">Send Message</Button>
-              <Button onClick={onClose}>Close</Button>
-            </form>
-          </div></div>)} */}
 
 </>
   );
