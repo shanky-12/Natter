@@ -115,7 +115,7 @@
 
 
 //     gm(body)
-//     .resize(400, 300)
+//     .resize(200, 600)
 
 //     .toBuffer((error, _buffer) => {
 //       if (error) {
