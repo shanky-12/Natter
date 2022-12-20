@@ -17,7 +17,7 @@ import AddNewCommunity from './AddNewCommunity';
 //admin.initializeApp();
 
 function AllCommunities() {
-  const [posts, setPosts] = useState([]);
+  const [community, setCommunity] = useState([]);
   const [isLoading, setLoading] = useState(true);
   console.log('FirebaseOptions');
   const auth = getAuth();
@@ -43,13 +43,30 @@ function AllCommunities() {
       id: doc.id,
       ...doc.data(),
     }));
-    setPosts(data);
+    setCommunity(data);
     setLoading(false);
   }
 //
   useEffect(() => {
     fetchPost();
   }, [])
+
+
+  useEffect(() => {
+    const q = query(collection(db, "community") , orderBy("createdAt", "desc"));
+    //const querySnapshot = await getDocs(query(collection(db, "community") , orderBy("createdAt", "desc"), limit(5)));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const _community = [];
+      querySnapshot.forEach((doc) => {
+        _community.push({
+          id: doc.id,
+          ...doc.data(),
+        });
+      });
+      setCommunity(_community);
+      console.log("Current communities details: ", community.join(", "));
+    });
+  }, []);
 
   // useEffect(() => {
   //   const q = query(collection(db, "community") , orderBy("createdAt", "desc"), limit(5));
@@ -89,7 +106,7 @@ function AllCommunities() {
       {loggedIn ? <AddNewCommunity /> : ""}
       {<Container maxW="container.sm" centerContent p={8}>  
         <VStack spacing={8} w="100%">
-          {posts.map((post) => (
+          {community.map((post) => (
             <Community post={post} key={post.id} />
             
           ))}

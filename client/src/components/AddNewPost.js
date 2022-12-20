@@ -155,11 +155,11 @@ const AddNewPost = () => {
           const comm = docSnap2.data().title;
 
           // Send the iurl to the backend
-          const response = await axios.get('http://localhost:3001/', {
+        /*   const response = await axios.get('http://localhost:3001/', {
             params: {
               src: iurl
             }
-          });
+          }); */
           const newUrl = iurl;
           // Get the new URL from the response
           // const newUrl = response.data;

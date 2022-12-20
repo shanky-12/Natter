@@ -16,7 +16,9 @@ import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 //admin.initializeApp();
 
 function AllPost() {
-  let postId = useParams().postnum
+  let communityId = useParams().postnum
+  console.log("communityId in ALlposts.js", communityId)
+
   const [posts, setPosts] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -34,9 +36,8 @@ function AllPost() {
   console.log('FirebaseOptions');
  
   async function fetchPost() {
-    //const querySnapshot = await getDocs(collection(db, "posts").orderBy("createdAt", "desc").limit(5));
-    
-    const querySnapshot = await getDocs(query(collection(db, "posts"), where("communityId", "==", postId)));
+    //const querySnapshot = await getDocs(collection(db, "posts").orderBy("createdAt", "desc").limit(5));  
+    const querySnapshot = await getDocs(query(collection(db, "posts"), orderBy("createdAt", "desc"),where("communityId", "==", communityId)));
     //console.log('querySnapshot', querySnapshot);
     //console.log('querySnapshot-next', querySnapshot.query._query.limit);
     const data = querySnapshot.docs.map((doc) => ({
@@ -44,38 +45,32 @@ function AllPost() {
       ...doc.data(),
     }));
     console.log(data)
-    // const querySnapshot2 = await getDocs(query(collection(db, "community", data.community)));
-    // console.log("yooooooooo", querySnapshot2)
-    // for (let i = 0; i < data.length; i++) {
-    //    console.log(xs[i]); 
-    //   }
     setPosts(data);
     setLoading(false);
   }
 
 
-//
   useEffect(() => {
     fetchPost();
-  }, [])
+  }, [communityId])
 
-  // useEffect(() => {
-  //   const q = query(collection(db, "posts") , orderBy("createdAt", "desc"), where("community", "==", postId));
-    
-  //   const unsubscribe = onSnapshot(q, (querySnapshot) => {
-  //     const _posts = [];
-  //     querySnapshot.forEach((doc) => {
-  //       _posts.push({
-  //         id: doc.id,
-  //         ...doc.data(),
-  //       });
+  useEffect(() => {
+    const q = query(collection(db, "posts"), orderBy("createdAt", "desc"), where("communityId", "==", communityId));   
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      const _posts = [];
+      querySnapshot.forEach((doc) => {
+        _posts.push({
+          id: doc.id,
+          ...doc.data(),
+        });
         
-  //     });
-  //     setPosts(_posts);
-  //     console.log("Current posts details: ", posts.join(", "));
-  //   });
+      });
+      setPosts(_posts);
+      console.log("Current posts details: ", posts.join(", "));
+    });
 
-  // }, []);
+  }, [communityId]);
+ 
 
        if (isLoading) {
         return (

@@ -9,6 +9,7 @@ import noImage from '../img/download.jpeg'
 
 
 const Community = ({ post }) => {
+  console.log("post in communitu.js  .....", post)
   const [url, setUrl] = React.useState(null);
 //   console.log("loading post : ")
 //   console.log(post)
@@ -16,7 +17,7 @@ const Community = ({ post }) => {
 // console.log("post val", post.id, post.id.toString())
   return (
     <HStack key={post.id} w="100%" alignItems="flex-start">
-      <VoteButtons post={post} />
+      {/* <VoteButtons post={post} /> */}
       <Box bg="rgb(200,200,200)" p={4} rounded="md" w="100%">
      
         <Text color='black' as='b'>{post.title}</Text>
@@ -27,7 +28,7 @@ const Community = ({ post }) => {
         <Text color='black'>{post.createdAt}</Text>
       </Box>
      
-      <Link to={"/allposts/"+post.id.toString()}>
+      <Link to={`/allposts/${post.id.toString()}`}>
       <Button type = "submit" color='white' bg='#FF5700'>Go to</Button>
       </Link>
     </HStack>
