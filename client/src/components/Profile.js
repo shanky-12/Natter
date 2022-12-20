@@ -77,7 +77,7 @@ import {
             
           });
           setPosts(_posts);
-          console.log("Current posts details: ", posts.join(", "));
+          // console.log("Current posts details: ", posts.join(", "));
         }, []);
     
       });

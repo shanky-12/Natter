@@ -8,6 +8,8 @@ import { collection, getDocs, getFirestore, onSnapshot, query, orderBy, limit } 
 //import Comments from '../components/Comments';
 // import db from "../lib/firebase";
 import {db, auth, firebaseStorage} from "../lib/firebase"
+import AddNewPost from './AddNewPost';
+import AddNewCommunity from './AddNewCommunity';
 //const functions = require('firebase-functions');
 //const admin = require('firebase-admin');
 
@@ -69,6 +71,7 @@ function AllCommunities() {
       <Heading>
         All Communities
       </Heading>
+      <AddNewCommunity />
       {<Container maxW="container.sm" centerContent p={8}>  
         <VStack spacing={8} w="100%">
           {posts.map((post) => (

@@ -80,7 +80,7 @@ const Navbar = () => {
           <div style ={{className :"navBabies", height : '50px', width: '500px',justifyContent : 'stretch'}}>
           <Flex w="575%"
           alignContent='flex-start'>
-            {loggedIn ? <AddNewPost /> : ""}
+            {/* {loggedIn ? <AddNewPost /> : ""} */}
           </Flex>
           </div>
           <div className="navBabies">

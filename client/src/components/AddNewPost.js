@@ -17,6 +17,7 @@ import {
 import React, { useState, useEffect } from "react";
 // import db from "../lib/firebase";
 // import storage from "../lib/firebase";
+import { Link, useParams } from 'react-router-dom';
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import axios from 'axios';
@@ -54,6 +55,7 @@ import {db, auth, firebaseStorage} from "../lib/firebase"
 
 
 const AddNewPost = () => {
+  let postId = useParams().postnum
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [title, setTitle] = useState("");
   const [community, setCommunity] = useState("");
@@ -128,25 +130,25 @@ const AddNewPost = () => {
           console.log("check iurl after download url : "+ iurl);
           
 
-          // Send the iurl to the backend
-          const response = await axios.get('http://localhost:3001/', {
-            params: {
-              src: iurl
-            }
-          });
+          // // Send the iurl to the backend
+          // const response = await axios.get('http://localhost:3001/', {
+          //   params: {
+          //     src: iurl
+          //   }
+          // });
 
-          // Get the new URL from the response
-          const newUrl = response.data;
-          console.log("Response Url : " + newUrl)
+          // // Get the new URL from the response
+          // const newUrl = response.data;
+          // console.log("Response Url : " + newUrl)
           
-          setUrl(iurl)
+          // setUrl(iurl)
 
           const docRef = await addDoc(collection(db, "posts"), {
             title: title,
             userID: uid,
             description: description,
-            community: community,
-            newUrl,
+            community: postId,
+            // newUrl,
             upVotesCount: 0,
             downVotesCount: 0,
             createdAt: date.toUTCString(),
@@ -210,7 +212,7 @@ const AddNewPost = () => {
                 />
               </FormControl>
 
-              <FormControl isRequired id="post-description">
+              {/* <FormControl isRequired id="post-description">
                 <FormLabel>Community</FormLabel>
                 <Textarea
                   type="post-description"
@@ -218,7 +220,7 @@ const AddNewPost = () => {
                   value={community}
                   onChange={(e) => setCommunity(e.target.value)}
                 />
-              </FormControl>
+              </FormControl> */}
               
 
               

@@ -8,6 +8,7 @@ import { collection, getDocs, getFirestore, onSnapshot, query, orderBy, limit, w
 //import Comments from '../components/Comments';
 // import db from "../lib/firebase";
 import {db, auth, firebaseStorage} from "../lib/firebase"
+import AddNewPost from './AddNewPost';
 //const functions = require('firebase-functions');
 //const admin = require('firebase-admin');
 
@@ -21,7 +22,8 @@ function AllPost() {
  
   async function fetchPost() {
     //const querySnapshot = await getDocs(collection(db, "posts").orderBy("createdAt", "desc").limit(5));
-    const querySnapshot = await getDocs(query(collection(db, "posts"), where("communityID", "==", postId), orderBy("createdAt", "desc"), limit(5)));
+    
+    const querySnapshot = await getDocs(query(collection(db, "posts"), where("community", "==", postId)));
     //console.log('querySnapshot', querySnapshot);
     //console.log('querySnapshot-next', querySnapshot.query._query.limit);
     const data = querySnapshot.docs.map((doc) => ({
@@ -37,7 +39,7 @@ function AllPost() {
   }, [])
 
   useEffect(() => {
-    const q = query(collection(db, "posts") , orderBy("createdAt", "desc"), where("communityID", "==", postId), limit(5));
+    const q = query(collection(db, "posts") , orderBy("createdAt", "desc"), where("community", "==", postId));
     
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const _posts = [];
@@ -65,6 +67,7 @@ function AllPost() {
   return (
     <>
     <div className='homePage'>
+      <AddNewPost />
    {/*  https://chakra-ui.com/docs/components/container */}
       {/* <Navbar /> */}
       {<Container maxW="container.sm" centerContent p={8}>  

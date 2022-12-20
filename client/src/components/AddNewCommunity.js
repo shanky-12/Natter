@@ -16,11 +16,11 @@ import {
   } from "@chakra-ui/react";
   import React, { useState, useEffect } from "react";
   //import db from "../lib/firebase";
-  import db from "../lib/firebase";
+
   import { initializeApp } from "firebase/app";
   import { collection, addDoc, getFirestore } from "firebase/firestore";
   import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-  
+  import {db, auth, firebaseStorage} from "../lib/firebase"
   //const app = initializeApp(firebaseConfig);
   
   const AddNewCommunity = () => {
@@ -74,9 +74,11 @@ import {
   
     return (
       <>
-        <Button onClick={onOpen} variant="solid" colorScheme="green" size="xxlg">
+        <Button onClick={onOpen} variant="solid" colorScheme="green" size="lg">
           Add new community
         </Button>
+        <br></br>
+
   
         <Modal onClose={onClose} size="xl" isOpen={isOpen} isCentered>
           <ModalOverlay>
