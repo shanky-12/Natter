@@ -96,7 +96,9 @@ const Post = ({ post }) => {
         {/* {gm(post.iurl)} */}
         {/* <Image src={post.newUrl} color='black' alt="Image Broken" boxSize='300px' /> */}
         <Image src= {post.newUrl ? post.newUrl : noImage} alt="Post image" boxSize='300px' />
+        <Text color='black'>Community: {post.community}</Text>
         <Text color='black'>{post.createdAt}</Text>
+        
       </Box>
      
       <Link to={"/posts/"+post.id.toString()}>

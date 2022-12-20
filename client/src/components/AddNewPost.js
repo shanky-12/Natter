@@ -18,7 +18,7 @@ import React, { useState, useEffect } from "react";
 // import db from "../lib/firebase";
 // import storage from "../lib/firebase";
 import { Link, useParams } from 'react-router-dom';
-import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { collection, addDoc, query, getFirestore, getDoc, where, doc } from "firebase/firestore";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import axios from 'axios';
 
@@ -142,12 +142,23 @@ const AddNewPost = () => {
           // console.log("Response Url : " + newUrl)
           
           // setUrl(iurl)
+          
+          // const querySnapshot = await getDoc(query(collection(db, "community"), where("Document ID", "==", postId)));
+          // const data = querySnapshot.docs;
+          // console.log("q:", querySnapshot)
+          // console.log("data", data)
+
+          const docRef2 = doc(db, "community", postId);
+          const docSnap2 = await getDoc(docRef2);
+          const comm = docSnap2.data().title;
+
 
           const docRef = await addDoc(collection(db, "posts"), {
             title: title,
             userID: uid,
             description: description,
-            community: postId,
+            community: comm,
+            communityId: postId,
             // newUrl,
             upVotesCount: 0,
             downVotesCount: 0,
