@@ -68,6 +68,8 @@ const VoteButtons = ({ post }) => {
       downVotesCount,
       createdAt: post.createdAt,
       updatedAt: date.toUTCString(),
+      community: post.community,
+      communityId: post.communityId
     });
     // Disable the voting button once the voting is successful.
     handleDisablingOfVoting(post.id);

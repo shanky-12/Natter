@@ -22,6 +22,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import AddNewPost from "./AddNewPost";
+import AddNewCommunity from "./AddNewCommunity";
 import Login from "./Login";
 import Register from "./Register";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
@@ -45,13 +46,11 @@ const Navbar = () => {
 
 
   const logout = async () => {
-
     try{
       await signOut(auth)
     }catch(e){
       console.log(e)
     }
-    
   }
   
   return (
@@ -68,11 +67,12 @@ const Navbar = () => {
           width = "150px"
           justifycontent= "flex-start"
         > 
-          <Image src="/images/redditFace.svg" height="40px" />
+          <Image src="/images/redditFace.svg" height="40px"  alt="logo image"/>
             <Image
               display={{ base: "none", md: "unset" }}
               src="/images/redditText.svg"
               height="50px"
+              alt="Image description"
                 />
 
             
@@ -81,7 +81,7 @@ const Navbar = () => {
           <div style ={{className :"navBabies", height : '50px', width: '500px',justifyContent : 'stretch'}}>
           <Flex w="575%"
           alignContent='flex-start'>
-            {loggedIn ? <AddNewPost /> : ""}
+            {/* {loggedIn ? <AddNewPost /> : ""} */}
           </Flex>
           </div>
           <div className="navBabies">

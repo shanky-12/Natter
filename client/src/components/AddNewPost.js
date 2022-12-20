@@ -17,7 +17,8 @@ import {
 import React, { useState, useEffect } from "react";
 // import db from "../lib/firebase";
 // import storage from "../lib/firebase";
-import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { Link, useParams } from 'react-router-dom';
+import { collection, addDoc, query, getFirestore, getDoc, where, doc } from "firebase/firestore";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import axios from 'axios';
 
@@ -54,8 +55,10 @@ import {db, auth, firebaseStorage} from "../lib/firebase"
 
 
 const AddNewPost = () => {
+  let postId = useParams().postnum
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [title, setTitle] = useState("");
+  const [community, setCommunity] = useState("");
   const [description, setDescription] = useState("");
   // const [imageUpload, setImageUpload] = useState("");
   const [imageFile, setImageFile] = useState(null);
@@ -82,6 +85,8 @@ const AddNewPost = () => {
     const date = new Date();
     if (!imageFile) { // || !videoFile) {
       // Display an error message or do something else to let the user know that they need to select a file.
+     alert("please uload image")
+     
       return;
     }
     try {
@@ -127,23 +132,47 @@ const AddNewPost = () => {
           console.log("check iurl after download url : "+ iurl);
           
 
-          // Send the iurl to the backend
-          const response = await axios.get('http://localhost:3001/', {
-            params: {
-              src: iurl
-            }
-          });
-          const newUrl = iurl;
+          // // Send the iurl to the backend
+          // const response = await axios.get('http://localhost:3001/', {
+          //   params: {
+          //     src: iurl
+          //   }
+          // });
+
           // Get the new URL from the response
           // const newUrl = response.data;
           // console.log("Response Url : " + newUrl)
           
+          // setUrl(iurl)
+          
+          // const querySnapshot = await getDoc(query(collection(db, "community"), where("Document ID", "==", postId)));
+          // const data = querySnapshot.docs;
+          // console.log("q:", querySnapshot)
+          // console.log("data", data)
+
+          const docRef2 = doc(db, "community", postId);
+          const docSnap2 = await getDoc(docRef2);
+          const comm = docSnap2.data().title;
+
+          // Send the iurl to the backend
+           const response = await axios.get('http://localhost:3002/', {
+            params: {
+              src: iurl
+            }
+          });
+          // const newUrl = iurl;
+          // Get the new URL from the response
+         const newUrl = response.data;
+          console.log("Response Url : " + newUrl)
           setUrl(iurl)
 
           const docRef = await addDoc(collection(db, "posts"), {
             title: title,
             userID: uid,
             description: description,
+            community: comm,
+            communityId: postId,
+            // newUrl,
             newUrl,
             upVotesCount: 0,
             downVotesCount: 0,
