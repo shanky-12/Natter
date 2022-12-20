@@ -93,15 +93,15 @@ if (myKey !== undefined /*&& sdata*/) {
   return (
           
           <>
-      <Button  onClick={Opener} variant="solid"> LiveChat </Button>
-          <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+      <Button  onClick={Opener} bg= 'blue' variant = "solid"> LiveChat </Button>
+          <Drawer  isOpen={isOpen} placement="right" onClose={onClose}>
             <DrawerOverlay>
               <DrawerContent>
               <DrawerCloseButton />
-              <DrawerHeader>LiveChat for {postName} </DrawerHeader>
+              <DrawerHeader bg='rgb(33,33,33)' color='white'>LiveChat for {postName} </DrawerHeader>
 
-              <DrawerBody>
-              <Card>
+              <DrawerBody bg='rgb(15,15,15)' color='white'>
+              <Card bg='rgb(33,33,33)' color='white'>
                 <CardBody>
                 <Stack divider={<StackDivider />} spacing='4'>
                   <Box>
@@ -113,8 +113,10 @@ if (myKey !== undefined /*&& sdata*/) {
               </Card>
                 
               </DrawerBody>
-              <DrawerFooter>
+              <DrawerFooter bg='rgb(33,33,33)' color='white'>
                 <Textarea
+                  bg='rgb(33,33,33)' 
+                  color='white'
                   placeholder='Type Here'
                   value={state.message}
                   size='sm'
@@ -127,23 +129,6 @@ if (myKey !== undefined /*&& sdata*/) {
               </DrawerContent>
             </DrawerOverlay>
           </Drawer>
-    
-          {/* {former&&(<div>
-            <div className="chat-popup" id="myForm">
-            <form onSubmit={onMessageSubmit} className="form-container">
-              <h1>Messenger</h1>
-              <div>
-                <Textarea placeholder="Type message.."
-                  name='message'
-                  id='message'
-                  variant='outlined'
-                  label='Message'
-                />
-              </div>
-              <Button className="btn">Send Message</Button>
-              <Button onClick={onClose}>Close</Button>
-            </form>
-          </div></div>)} */}
 
 </>
   );
