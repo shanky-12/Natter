@@ -17,7 +17,7 @@ import {
 import React, { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 //import db from "../lib/firebase";
-import db from "../lib/firebase";
+import { db } from "../lib/firebase";
 import { initializeApp } from "firebase/app";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 
@@ -69,17 +69,17 @@ const Register = () => {
       </Button>
       {/* {loading ? <Spinner> : <Text color={color}>Hi</Text>} */}
 
-      <Modal onClose={onClose} size="xl" isOpen={isOpen} isCentered>
-        <ModalOverlay>
-          <ModalContent>
-            <ModalHeader>Register</ModalHeader>
+      <Modal onClose={onClose} size="xl" isOpen={isOpen} isCentered bg='rgb(33,33,33)'>
+        <ModalOverlay >
+          <ModalContent >
+            <ModalHeader bg='rgb(33,33,33)' color='white'>Register</ModalHeader>
 
             <FormLabel id="error">{error ? errorD : ""}</FormLabel>
             <ModalCloseButton />
-            <ModalBody>
+            <ModalBody bg='rgb(33,33,33)' color='white'>
               <FormControl isRequired id="post-title">
                 <FormLabel>Email</FormLabel>
-                <Input
+                <Input 
                   type="post-title"
                   placeholder="Enter email"
                   value={email}
@@ -90,7 +90,7 @@ const Register = () => {
               <FormControl isRequired id="post-title">
                 <FormLabel>Password</FormLabel>
                 <Input
-                  type="password"
+                  type="post-title"
                   placeholder="Enter password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -100,7 +100,7 @@ const Register = () => {
               <FormControl isRequired id="post-title">
                 <FormLabel>Confirm Password</FormLabel>
                 <Input
-                  type="password"
+                  type="post-title"
                   placeholder="Enter password"
                   value={passwordC}
                   onChange={(e) => setPasswordC(e.target.value)}
@@ -117,12 +117,13 @@ const Register = () => {
                 />
               </FormControl>
             </ModalBody>
-            <ModalFooter>
+            <ModalFooter bg='rgb(33,33,33)' color='white'>
               <HStack spacing={4}>
-                <Button onClick={onClose}>Close</Button>
+                <Button color='white' bg='red' onClick={onClose}>Close</Button>
                 <Button
+                  bg='#FF5700'
                   onClick={handleSubmit}
-                  colorScheme="blue"
+                  color="white"
                   disabled={!email.trim() && !password.trim()}
                   isLoading={isSaving}
                 >

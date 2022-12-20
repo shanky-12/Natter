@@ -12,11 +12,10 @@ import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 //import CharacterHistory from './components/CharacterHistory';
 //import AllPost from './components/AllPost';
 import AllPost from './components/AllPost';
+import AllCommunities from './components/AllCommunities';
 import Comment from './components/Comment';
-import PrivateRoute from './components/PrivateRoute';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile';
-import LiveChat from './components/LiveChat';
 
 
 
@@ -33,13 +32,11 @@ function App() {
       <div className='App-body'>
         <Routes>
        {/*  <Route exact path='/' component={Home} /> */}
-        <Route path='/' element={<AllPost/>}></Route>
+        {/* <Route path='/' element={<AllPost/>}></Route> */}
+        <Route path='/' element={<AllCommunities/>}></Route>
         <Route path='/posts/:postnum' element={<Comment/>}></Route>
-        <Route path='/postChat/:postnum' element={<LiveChat/>}></Route>
+        <Route path='/allposts/:postnum' element={<AllPost/>}></Route>
         <Route path='/profile' element={<Profile/>}></Route>
-        {/* <Route path='/home' element={<PrivateRoute />}>
-            <Route path='/home' element={<Home />} />
-          </Route> */}
       {/*   <Route path='/characters/page/:pagenum' element={<CharactersList />} /> 
         <Route path='/comics/page/:pagenum' element={<ComicsList />} /> 
         <Route path='/stories/page/:pagenum' element={<StoriesList />} />

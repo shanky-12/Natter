@@ -1,7 +1,7 @@
 import { IconButton, Text, VStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { FiArrowDown, FiArrowUp } from "react-icons/fi";
-import db from "../lib/firebase";
+import { db } from "../lib/firebase";
 import { doc, setDoc } from "firebase/firestore";
 
 const VoteButtons = ({ post }) => {
@@ -61,10 +61,15 @@ const VoteButtons = ({ post }) => {
     }); */
     await setDoc(doc(db, "posts", post.id), {
       title: post.title,
+      description : post.description,
+      newUrl: post.newUrl,
+      userID: post.userID,
       upVotesCount,
       downVotesCount,
       createdAt: post.createdAt,
       updatedAt: date.toUTCString(),
+      community: post.community,
+      communityId: post.communityId
     });
     // Disable the voting button once the voting is successful.
     handleDisablingOfVoting(post.id);
@@ -82,20 +87,27 @@ const VoteButtons = ({ post }) => {
   return (
     <>
       <VStack>
-        <IconButton
+        
+        <Text bg="#FF5700" rounded="md" align='center' fontSize='2xl' height='48px' color='white' width='48px' p={1} >
+          <b>{post.upVotesCount}</b>
+        </Text>
+
+        <Text bg="#FF5700" rounded="md" height='48px' fontSize='2xl' width='48px' color='white' p={1}>
+        <b>{post.downVotesCount}</b>
+        </Text>
+      </VStack>
+      <VStack>
+      <IconButton
           size="lg"
           colorScheme="green"
           aria-label="Upvote"
           icon={<FiArrowUp />}
           onClick={() => handleClick("upvote")}
           isLoading={isVoting}
-          /* isDisabled={checkIfPostIsAlreadyVoted()} */
+
+
+          isDisabled={checkIfPostIsAlreadyVoted()}
         />
-        <Text bg="gray.100" rounded="md" w="100%" p={1}>
-          {post.upVotesCount}
-        </Text>
-      </VStack>
-      <VStack>
         <IconButton
           size="lg"
           colorScheme="red"
@@ -103,11 +115,9 @@ const VoteButtons = ({ post }) => {
           icon={<FiArrowDown />}
           onClick={() => handleClick("downvote")}
           isLoading={isVoting}
-         /*  isDisabled={checkIfPostIsAlreadyVoted()} */
+         isDisabled={checkIfPostIsAlreadyVoted()}
         />
-        <Text bg="gray.100" rounded="md" w="100%" p={1}>
-          {post.downVotesCount}
-        </Text>
+        
       </VStack>
     </>
   );

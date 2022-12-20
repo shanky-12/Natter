@@ -1,8 +1,14 @@
-const app = require('express');
+const express = require('express');
+const app = express();
 const http = require('http').createServer(app);
-var io = require('socket.io')(http);
+const cors = require('cors');
 
-
+const io = require('socket.io')(http, {
+  cors: {
+    origin: "http://localhost:3001",
+    methods: ["GET", "POST"]
+  }
+});
 io.on('connection', (socket) => {
   console.log('new client connected', socket.id);
 
@@ -27,9 +33,10 @@ async function addMessage(name,message,socketID){
     name:name,
     message,message,
     time: Date.now()
-  }
+  };
+  return newMessage;
 }
 
-http.listen(3000, () => {
+http.listen(3000, function() {
   console.log(`listening on *:${3000}`);
 });
