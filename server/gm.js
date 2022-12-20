@@ -159,7 +159,8 @@ import express from 'express';
 import request from 'request';
 import gm from 'gm';
 // import { storage } from 'firebase-admin';
-import { db, firebaseStorage } from '/Users/shankytyagi/Desktop/Natter-Aditi-2/server/firebase/firebaseConfig.js';
+//import { db, firebaseStorage } from '/Users/shankytyagi/Desktop/Natter-Aditi-2/server/firebase/firebaseConfig.js';
+import { db, firebaseStorage } from '../server/firebase/firebaseConfig.js';
 import {ref,updateMetadata, uploadBytesResumable,getDownloadURL} from "firebase/storage"
 const app = express();
 
