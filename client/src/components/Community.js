@@ -10,10 +10,10 @@ import noImage from '../img/download.jpeg'
 
 const Community = ({ post }) => {
   const [url, setUrl] = React.useState(null);
-  console.log("loading post : ")
-  console.log(post)
+//   console.log("loading post : ")
+//   console.log(post)
   
-console.log("post val", post.id, post.id.toString())
+// console.log("post val", post.id, post.id.toString())
   return (
     <HStack key={post.id} w="100%" alignItems="flex-start">
       <VoteButtons post={post} />

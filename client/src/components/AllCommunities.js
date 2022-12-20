@@ -49,7 +49,7 @@ function AllCommunities() {
 //
   useEffect(() => {
     fetchPost();
-  })
+  }, [])
 
   // useEffect(() => {
   //   const q = query(collection(db, "community") , orderBy("createdAt", "desc"), limit(5));
