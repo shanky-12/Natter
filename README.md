@@ -1,12 +1,5 @@
 # Natter
 
-## Contribution rules
-
-Avoid micro commits
-Create a Pull Request for code changes
-Get Code review done from peer
-Evaluate bugs and console errors before code merge
-
 ## Environment Setup
 
 **Note: create .env file in client root and server root, also  add below settings for authentication to work. Should be added in "project-root/client>.env"!**
