@@ -72,20 +72,39 @@
 
 // export default Post;
 
-import { Box, HStack, Text, Button, Image } from "@chakra-ui/react";
-import React from "react";
+import { Box, HStack, Text, Button,Flex, Image } from "@chakra-ui/react";
+import React, {useEffect, useState} from "react";
 import VoteButtons from "./VoteButtons";
 import { Link, useParams } from 'react-router-dom';
 // import gm from "gm";
 import noImage from '../img/download.jpeg'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import LiveChat from "./LiveChat";
 
 
 const Post = ({ post }) => {
+
+  const auth = getAuth();
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [name, setName] = useState("");
+  const [myKey,setMyKey]=useState(post.id);
   const [url, setUrl] = React.useState(null);
-//   console.log("loading post : ")
-//   console.log(post)
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setLoggedIn(true)
+        setName(user.displayName);
+        // ...
+      } else {
+        setLoggedIn(false)
+      }
+    });
+  });
+  // console.log("loading post : ")
+  // console.log(post)
   
-// console.log("post val", post.id, post.id.toString())
+console.log("post val", post.id, post.id.toString())
   return (
     <HStack key={post.id} w="100%" alignItems="flex-start">
       <VoteButtons post={post} />
@@ -104,6 +123,9 @@ const Post = ({ post }) => {
       <Link to={"/posts/"+post.id.toString()}>
       <Button type = "submit" color='white' bg='#FF5700'>comment</Button>
       </Link>
+      <Flex>
+        {loggedIn ? <LiveChat myKey={myKey}postName={post.title} name={name} /> : ""}
+        </Flex>
     </HStack>
   );
 };

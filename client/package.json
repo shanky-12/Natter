@@ -28,6 +28,7 @@
     "react-remove-scroll": "^2.5.5",
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
+    "socket.io-client": "^4.5.4",
     "spawn-sync": "^2.0.0",
     "stream-browserify": "^3.0.0",
     "util": "^0.12.5",

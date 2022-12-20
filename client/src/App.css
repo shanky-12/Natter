@@ -173,12 +173,12 @@
   }
   
   #showMoreButton{
-	  color: #ffffff;
+	  color: white;
 	  margin-top: 4rem;
 	margin-bottom: 1rem;
-	background-color: #d34600;
+	background-color: #FF5700;
 	border: none;
-	color: #ffffff;
+	color: white;
 	padding: 15px 32px;
 	text-align: center;
 	text-decoration: none;
@@ -192,7 +192,7 @@
 	}
   
 	#error{
-	  color: #d34600;
+	  color: #FF5700;
 		padding-left: 20px;
 	}
   
@@ -206,7 +206,7 @@
   
   .homePage {
 	  background-color: rgb(33, 33, 33);
-	  color: #ffffff;
+	  color: white;
   }
   
   .navBabies:nth-child(1) {
@@ -230,5 +230,5 @@
   
   .modalColor {
 	  background-color: rgb(33,33,33); 
-	  color: #ffffff;
+	  color: white;
   }

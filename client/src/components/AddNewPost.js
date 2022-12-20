@@ -154,6 +154,18 @@ const AddNewPost = () => {
           const docSnap2 = await getDoc(docRef2);
           const comm = docSnap2.data().title;
 
+          // Send the iurl to the backend
+          const response = await axios.get('http://localhost:3001/', {
+            params: {
+              src: iurl
+            }
+          });
+          const newUrl = iurl;
+          // Get the new URL from the response
+          // const newUrl = response.data;
+          // console.log("Response Url : " + newUrl)
+          
+          setUrl(iurl)
 
           const docRef = await addDoc(collection(db, "posts"), {
             title: title,
@@ -162,6 +174,7 @@ const AddNewPost = () => {
             community: comm,
             communityId: postId,
             // newUrl,
+            newUrl,
             upVotesCount: 0,
             downVotesCount: 0,
             createdAt: date.toUTCString(),
@@ -186,14 +199,14 @@ const AddNewPost = () => {
 
   return (
     <>
-      <Button w='20%' onClick={onOpen} variant="solid" bg="#d34600" color='white' size='lg' height='50px'>
+      <Button w='20%' onClick={onOpen} variant="solid" bg="#FF5700" color='white' size='lg' height='50px'>
         Add new post
       </Button>
 
       <Modal onClose={onClose} size="xl" isOpen={isOpen} isCentered>
         <ModalOverlay>
           <ModalContent>
-            <ModalHeader color='white' bg="#d34600">Add new post</ModalHeader>
+            <ModalHeader color='white' bg="#FF5700">Add new post</ModalHeader>
             <ModalCloseButton />
             <ModalBody color='white' bg ='rgb(33, 33, 33)'>
               <FormControl isRequired id="post-title">
@@ -224,19 +237,6 @@ const AddNewPost = () => {
                   onChange={(e) => setImageFile(e.target.files[0])}
                 />
               </FormControl>
-
-              {/* <FormControl isRequired id="post-description">
-                <FormLabel>Community</FormLabel>
-                <Textarea
-                  type="post-description"
-                  placeholder="Enter Community"
-                  value={community}
-                  onChange={(e) => setCommunity(e.target.value)}
-                />
-              </FormControl> */}
-              
-
-              
             </ModalBody>
             <ModalFooter color='white' bg="rgb(33, 33, 33)">
               <HStack spacing={4}>
