@@ -91,12 +91,12 @@ console.log("post val", post.id, post.id.toString())
       <VoteButtons post={post} />
       <Box bg="rgb(200,200,200)" p={4} rounded="md" w="100%">
      
-        <Text color='black' as='b'>{post.title}</Text>
-        <Text color='black'>{post.description}</Text>
+        <Text color='white' as='b'>{post.title}</Text>
+        <Text color='white'>{post.description}</Text>
         {/* {gm(post.iurl)} */}
         {/* <Image src={post.newUrl} color='black' alt="Image Broken" boxSize='300px' /> */}
         <Image src= {post.newUrl ? post.newUrl : noImage} alt="Post image" boxSize='300px' />
-        <Text color='black'>{post.createdAt}</Text>
+        <Text color='white'>{post.createdAt}</Text>
       </Box>
      
       <Link to={"/posts/"+post.id.toString()}>

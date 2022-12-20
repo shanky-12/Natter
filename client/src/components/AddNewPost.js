@@ -82,6 +82,8 @@ const AddNewPost = () => {
     const date = new Date();
     if (!imageFile) { // || !videoFile) {
       // Display an error message or do something else to let the user know that they need to select a file.
+     alert("please uload image")
+     
       return;
     }
     try {
@@ -169,14 +171,14 @@ const AddNewPost = () => {
 
   return (
     <>
-      <Button w='20%' onClick={onOpen} variant="solid" bg="#FF5700" color='white' size='lg' height='50px'>
+      <Button w='20%' onClick={onOpen} variant="solid" bg="#d34600" color='white' size='lg' height='50px'>
         Add new post
       </Button>
 
       <Modal onClose={onClose} size="xl" isOpen={isOpen} isCentered>
         <ModalOverlay>
           <ModalContent>
-            <ModalHeader color='white' bg="#FF5700">Add new post</ModalHeader>
+            <ModalHeader color='white' bg="#d34600">Add new post</ModalHeader>
             <ModalCloseButton />
             <ModalBody color='white' bg ='rgb(33, 33, 33)'>
               <FormControl isRequired id="post-title">

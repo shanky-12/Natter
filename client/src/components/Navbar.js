@@ -68,11 +68,12 @@ const Navbar = () => {
           width = "150px"
           justifycontent= "flex-start"
         > 
-          <Image src="/images/redditFace.svg" height="40px" />
+          <Image src="/images/redditFace.svg" height="40px"  alt="logo image"/>
             <Image
               display={{ base: "none", md: "unset" }}
               src="/images/redditText.svg"
               height="50px"
+              alt="Image description"
                 />
 
             
