@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     env_file: ./.env
     ports:
-      - $NODE_CLIENT_LOCAL_PORT:$NODE_CLIENT_DOCKER_PORT
+      - 3000:3000
     stdin_open: true
     tty: true
   server:
@@ -15,6 +15,7 @@ services:
     restart: unless-stopped
     env_file: ./.env
     ports:
-      - $NODE_SERVER_LOCAL_PORT:$NODE_SERVER_DOCKER_PORT
+      - "3001:3001"
+      - "3002:3002"
     stdin_open: true
     tty: true
