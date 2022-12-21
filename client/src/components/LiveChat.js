@@ -46,7 +46,6 @@ const LiveChat = ({ myKey,postName,name }) => {
       renderChat();
     });
     socketRef.current.on('user_join', function (data) {
-      alert(data);
       setChat([
         ...chat,
         {name: 'ChatBot', message: `${data} has joined the chat`},
