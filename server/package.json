@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node app.cjs",
+    "start": "pm2 start app.cjs  && pm2 start gm.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -22,6 +22,7 @@
     "firebase-admin": "^11.4.0",
     "gm": "^1.25.0",
     "nodemon": "^2.0.15",
+    "pm2": "^5.2.2",
     "request": "^2.88.2",
     "socket.io": "^4.5.4"
   }

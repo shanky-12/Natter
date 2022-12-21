@@ -18,19 +18,16 @@ import {
   StackDivider,
   Box,
   Heading,
-  Text,
-  Spinner
+  Text
 } from "@chakra-ui/react";
-import { Link, useParams } from 'react-router-dom';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getAuth,} from "firebase/auth";
 
 const LiveChat = ({ myKey,postName,name }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const auth = getAuth();
   let postId = myKey;
   const [state, setState] = useState({message: '', name: name});
-  const [chat, setChat] = useState([{message: `Welcome to ${postName}'s Chat`, name: 'ChatBot'}]);
-  const [loading,setLoading]=useState(true);
+  const [chat, setChat] = useState([{name: 'ChatBot', message: `Welcome to ${postName}'s chat`}]);
 
   const socketRef = useRef();
 
@@ -48,7 +45,6 @@ const LiveChat = ({ myKey,postName,name }) => {
       renderChat();
     });
     socketRef.current.on('user_join', function (data) {
-      setLoading(false);
       setChat([
         ...chat,
         {name: 'ChatBot', message: `${data} has joined the chat`},
@@ -95,15 +91,15 @@ if (myKey !== undefined /*&& sdata*/) {
   return (
           
           <>
-      <Button  onClick={Opener} variant="solid"> LiveChat </Button>
-          <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
+      <Button  onClick={Opener} bg= 'blue' variant = "solid"> LiveChat </Button>
+          <Drawer  isOpen={isOpen} placement="right" onClose={onClose}>
             <DrawerOverlay>
               <DrawerContent>
               <DrawerCloseButton />
-              <DrawerHeader>LiveChat for {postName} </DrawerHeader>
+              <DrawerHeader bg='rgb(33,33,33)' color='white'>LiveChat for {postName} </DrawerHeader>
 
-              <DrawerBody>
-              <Card>
+              <DrawerBody bg='rgb(15,15,15)' color='white'>
+              <Card bg='rgb(33,33,33)' color='white'>
                 <CardBody>
                 <Stack divider={<StackDivider />} spacing='4'>
                   <Box>
@@ -115,17 +111,17 @@ if (myKey !== undefined /*&& sdata*/) {
               </Card>
                 
               </DrawerBody>
-              <DrawerFooter>
+              <DrawerFooter bg='rgb(33,33,33)' color='white'>
                 <Textarea
+                  bg='rgb(33,33,33)' 
+                  color='white'
                   placeholder='Type Here'
                   value={state.message}
                   size='sm'
                   resize='verticle'
-                  isDisabled={loading}
                   onChange={(e)=>setState({message:e.target.value,name:name})}
                 />
-                <Button hidden={!loading}><Spinner></Spinner></Button>
-                <Button hidden={loading}onClick={onMessageSubmit} colorScheme="blue" type='submit'>Send</Button>
+                <Button onClick={onMessageSubmit} colorScheme="blue" type='submit'>Send</Button>
               </DrawerFooter>
                 
               </DrawerContent>

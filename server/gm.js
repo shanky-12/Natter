@@ -2,8 +2,8 @@
 import express from 'express';
 import request from 'request';
 import gm from 'gm';
-// import { storage } from 'firebase-admin';
-import { db, firebaseStorage } from './firebase/firebaseConfig.js';
+
+import { firebaseStorage } from './firebase/firebaseConfig.js';
 import {ref,updateMetadata, uploadBytesResumable,getDownloadURL} from "firebase/storage"
 const app = express();
 
@@ -13,20 +13,21 @@ app.use((req, res, next) => {
 });
 
 app.get('/', async (req, res) => {
-  const { src } = req.query; // get the image URL from the frontend
+  // get the image URL from the frontend
+  const { src } = req.query; 
     console.log("Original url : "+ src)
-  // Download the image
+  
+    // Download the image
   gm(request(src)).toBuffer(function(error, imageData) {
     if (error) {
       // handle the error
     } else {
       // Create a new file in Firebase Storage with the same name and content type as the original image
-    //   const file = firebaseStorage.bucket().file(src);
     const file = ref(firebaseStorage, `${src}`)
     updateMetadata(file, { contentType: 'image/jpeg' });
 
       // Resize the image and save it to the new file
-      gm(imageData).resize(800, 300).toBuffer(function(error, buffer) {
+      gm(imageData).resize(400, 400).toBuffer(function(error, buffer) {
         if (error) {
           // handle the error
         } else {
@@ -49,7 +50,7 @@ app.get('/', async (req, res) => {
   });
 });
 
-const port = 3001;
+const port = 3002;
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
