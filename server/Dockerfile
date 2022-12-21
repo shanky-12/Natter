@@ -4,6 +4,9 @@ FROM node:16
 # Install graphics magick
 RUN apt-get update && apt-get install -y graphicsmagick
 
+# Install pm2
+RUN npm install -g pm2
+
 # virtualized Docker environment directory
 WORKDIR /server
 
@@ -21,4 +24,6 @@ EXPOSE 3001
 EXPOSE 3002
 
 # Finally runs the application
-CMD [ "npm", "start" ]
+# CMD [ "npm", "start" ]
+# Run the processes using pm2
+CMD ["pm2-runtime", "start", "ecosystem.config.cjs"]
