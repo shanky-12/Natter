@@ -121,7 +121,7 @@ const Register = () => {
               <HStack spacing={4}>
                 <Button color='white' bg='red' onClick={onClose}>Close</Button>
                 <Button
-                  bg='#FF5700'
+                  bg='#d34600'
                   onClick={handleSubmit}
                   color="white"
                   disabled={!email.trim() && !password.trim()}

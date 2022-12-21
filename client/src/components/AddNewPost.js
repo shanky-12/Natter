@@ -17,9 +17,10 @@ import {
 import React, { useState, useEffect } from "react";
 // import db from "../lib/firebase";
 // import storage from "../lib/firebase";
-import { Link, useParams } from 'react-router-dom';
-import { collection, addDoc, query, getFirestore, getDoc, where, doc } from "firebase/firestore";
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { useParams } from 'react-router-dom';
+import { collection, addDoc, getDoc,  doc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import noImage from '../img/download.jpeg'
 import axios from 'axios';
 
 
@@ -31,7 +32,7 @@ import axios from 'axios';
 // import {getStorage} from "firebase/storage"
 import {ref, uploadBytesResumable,getDownloadURL} from "firebase/storage"
 
-import {db, auth, firebaseStorage} from "../lib/firebase"
+import {db, firebaseStorage} from "../lib/firebase"
 //const functions = require('firebase-functions');
 //const admin = require('firebase-admin');
 
@@ -58,15 +59,16 @@ const AddNewPost = () => {
   let postId = useParams().postnum
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [title, setTitle] = useState("");
-  const [community, setCommunity] = useState("");
   const [description, setDescription] = useState("");
   // const [imageUpload, setImageUpload] = useState("");
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState(noImage);
   const [uid, setUID] = useState("");
   const [isSaving, setSaving] = useState(false);
   const [percent, setPercent] = useState(0);
   const [iurl, setUrl] = useState("");
+  const [req, setReq] = useState(false);
   const auth = getAuth();
+
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -77,15 +79,19 @@ const AddNewPost = () => {
       }
     });
   });
+  useEffect(() => {
+    setReq((!title.trim() && !description.trim()&&!(imageFile==noImage)));
+  }, [title,description,imageFile])
+  
   const handleSubmit = async () => {
     //const db = getFirestore(app);
     let iurl="";
     console.log("Check db : ", db);
     setSaving(true);
     const date = new Date();
-    if (!imageFile) { // || !videoFile) {
+    if (imageFile==noImage) { // || !videoFile) {
       // Display an error message or do something else to let the user know that they need to select a file.
-     alert("please uload image")
+     alert("please upload image");
      
       return;
     }
@@ -99,15 +105,7 @@ const AddNewPost = () => {
       // Create a reference to the location where the image will be stored
       const imageRef = ref(firebaseStorage, `images/${fileName}`)
       console.log("check2 : " +imageRef)
-      // await imageRef.put(imageFile);
-      // iurl = await fileRef.getDownloadURL();
-      // addDoc('posts', { title, description, iurl });
-      // Upload the image file to Firebase Storage
-      // await imageRef.put(imageFile);
-      // let imageUrl;
       
-
-      // const uploadTask = imageRef.put(imageFile);
       // call server express route with image blob or binary in post request
       //on server request process gm resize and forwrad that to firbase upload
       // return upload scuess and image url to client
@@ -191,21 +189,21 @@ const AddNewPost = () => {
     onClose();
     setTitle("");
     setDescription("");
-    setImageFile(null);
+    setImageFile(noImage);
 
     setSaving(false);
   };
 
   return (
     <>
-      <Button w='20%' onClick={onOpen} variant="solid" bg="#FF5700" color='white' size='lg' height='50px'>
+      <Button w='20%' onClick={onOpen} variant="solid" bg="#d34600" color='white' size='lg' height='50px'>
         Add new post
       </Button>
 
       <Modal onClose={onClose} size="xl" isOpen={isOpen} isCentered>
         <ModalOverlay>
           <ModalContent>
-            <ModalHeader color='white' bg="#FF5700">Add new post</ModalHeader>
+            <ModalHeader color='white' bg="#d34600">Add new post</ModalHeader>
             <ModalCloseButton />
             <ModalBody color='white' bg ='rgb(33, 33, 33)'>
               <FormControl isRequired id="post-title">
@@ -228,11 +226,12 @@ const AddNewPost = () => {
                 />
               </FormControl>
 
-              <FormControl id="post-imageupload">
+              <FormControl isRequired id="post-imageupload">
                 <FormLabel>Image Upload</FormLabel>
                 <input
                   type="file"
                   alt="No image"
+                  accept=".jpg, .jpeg, .jfif, .pjpeg, .pjp, .png"
                   onChange={(e) => setImageFile(e.target.files[0])}
                 />
               </FormControl>
@@ -246,7 +245,7 @@ const AddNewPost = () => {
                   onClick={handleSubmit}
                   bg='green'
                   color='white'
-                  disabled={!title.trim() && !description.trim()}
+                  disabled={req}
                   isLoading={isSaving}
                 >
                   Save

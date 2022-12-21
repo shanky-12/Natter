@@ -17,10 +17,9 @@ import {
   import React, { useState, useEffect } from "react";
   //import db from "../lib/firebase";
 
-  import { initializeApp } from "firebase/app";
-  import { collection, addDoc, getFirestore } from "firebase/firestore";
-  import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-  import {db, auth, firebaseStorage} from "../lib/firebase"
+  import { collection, addDoc } from "firebase/firestore";
+  import { getAuth, onAuthStateChanged } from "firebase/auth";
+  import {db} from "../lib/firebase"
   //const app = initializeApp(firebaseConfig);
   
   const AddNewCommunity = () => {
@@ -74,7 +73,7 @@ import {
   
     return (
       <>
-        <Button onClick={onOpen} variant="solid" colorScheme="green" size="lg">
+        <Button onClick={onOpen} variant="solid" colorScheme='facebook' size="lg">
           Add new community
         </Button>
         <br></br>

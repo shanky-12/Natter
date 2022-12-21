@@ -20,15 +20,12 @@ import {
   Heading,
   Text
 } from "@chakra-ui/react";
-import { Link, useParams } from 'react-router-dom';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const LiveChat = ({ myKey,postName,name }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const auth = getAuth();
   let postId = myKey;
   const [state, setState] = useState({message: '', name: name});
-  const [chat, setChat] = useState([{name: 'ChatBot', message: `${name} has joined the chat`}]);
+  const [chat, setChat] = useState([{name: 'ChatBot', message: `Welcome to ${postName}'s chat`}]);
 
   const socketRef = useRef();
 
@@ -92,7 +89,7 @@ if (myKey !== undefined /*&& sdata*/) {
   return (
           
           <>
-      <Button  onClick={Opener} bg= 'blue' variant = "solid"> LiveChat </Button>
+      <Button  onClick={Opener} colorScheme='facebook' variant = "solid"> LiveChat </Button>
           <Drawer  isOpen={isOpen} placement="right" onClose={onClose}>
             <DrawerOverlay>
               <DrawerContent>

@@ -1,16 +1,12 @@
 import '../App.css';
 import { Container, Flex, Spinner, VStack, Box, HStack, Text, Button, Textarea } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from 'react-router-dom';
-import Post from "../components/Post";
-import { collection, getDocs, doc, getDoc, addDoc, getFirestore, onSnapshot, query, orderBy, limit, where } from "firebase/firestore";
+import { useParams } from 'react-router-dom';
+import { collection, getDocs, addDoc, onSnapshot, query, orderBy, where } from "firebase/firestore";
 import DeleteCommentModal from './modals/DeleteCommentModal';
 import { db } from "../lib/firebase";
 import Replies from './Replies';
 
-//const functions = require('firebase-functions');
-//const admin = require('firebase-admin');
-//admin.initializeApp();
 
 function AllCommentDisplay() {
   let postId = useParams().postnum
@@ -22,9 +18,6 @@ function AllCommentDisplay() {
   const [openTextAreaCommentId, setOpenTextAreaCommentId] = useState(null);
   const [reply, setReply] = useState('');
   const [commID, setcommID] = useState('');
-  const [subreply, setSubreply] = useState([]);
-  const [subreplycheck, setSubreplycheck] = useState(false);
-  const [renderCommentId, setRenderCommentId] = useState('');
   const date = new Date();
   let x
 
@@ -159,7 +152,7 @@ function AllCommentDisplay() {
                   }
                 >Reply</Button> :
 
-                  <Button bg='rgb(200,200,200)'
+                  <Button bg='#d34600'
                     type="submit"
                     onClick={(e) =>
                       onMessageSubmit({ id: comment.id })

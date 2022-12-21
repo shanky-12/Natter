@@ -29,7 +29,6 @@ project-root/client> npm start
 ## Start backend server
 
 project-root/server> npm start
-Do this after the client starts up
 
 ## The app could also run in containerized environment on docker. docker software should be installed from docker
 

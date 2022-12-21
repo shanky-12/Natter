@@ -16,6 +16,7 @@ import AllCommunities from './components/AllCommunities';
 import Comment from './components/Comment';
 import Navbar from './components/Navbar';
 import Profile from './components/Profile';
+import Error from './components/Error';
 
 
 
@@ -34,9 +35,11 @@ function App() {
        {/*  <Route exact path='/' component={Home} /> */}
         {/* <Route path='/' element={<AllPost/>}></Route> */}
         <Route path='/' element={<AllCommunities/>}></Route>
+
         <Route path='/posts/:postnum' element={<Comment/>}></Route>
         <Route path='/allposts/:postnum' element={<AllPost/>}></Route>
         <Route path='/profile' element={<Profile/>}></Route>
+        <Route path='/*' element={<Error/>}></Route>
       {/*   <Route path='/characters/page/:pagenum' element={<CharactersList />} /> 
         <Route path='/comics/page/:pagenum' element={<ComicsList />} /> 
         <Route path='/stories/page/:pagenum' element={<StoriesList />} />
