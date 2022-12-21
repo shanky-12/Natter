@@ -33,4 +33,5 @@ project-root/server> npm start
 ## The app could also run in containerized environment on docker. docker software should be installed from docker
 
 project-root>docker-compose build
+
 project-root>docker-compose up
