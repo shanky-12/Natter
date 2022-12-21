@@ -88,7 +88,6 @@ const Post = ({ post }) => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [name, setName] = useState("");
   const [myKey,setMyKey]=useState(post.id);
-  const [url, setUrl] = React.useState(null);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -108,7 +107,7 @@ console.log("post val", post.id, post.id.toString())
   return (
     <HStack key={post.id} w="100%" alignItems="flex-start">
       <VoteButtons post={post} />
-      <Box bg="rgb(200,200,200)" p={4} rounded="md" w="100%">
+      <Box bg='#747474' p={4} rounded="md" w="100%">
      
         <Text color='white' as='b'>{post.title}</Text>
         <Text color='white'>{post.description}</Text>
@@ -121,7 +120,7 @@ console.log("post val", post.id, post.id.toString())
       </Box>
      
       <Link to={"/posts/"+post.id.toString()}>
-      <Button type = "submit" color='white' bg='#FF5700'>comment</Button>
+      <Button type = "submit" color='white' bg='#d34600'>comment</Button>
       </Link>
       <Flex>
         {loggedIn ? <LiveChat myKey={myKey}postName={post.title} name={name} /> : ""}

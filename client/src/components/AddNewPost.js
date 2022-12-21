@@ -17,9 +17,9 @@ import {
 import React, { useState, useEffect } from "react";
 // import db from "../lib/firebase";
 // import storage from "../lib/firebase";
-import { Link, useParams } from 'react-router-dom';
-import { collection, addDoc, query, getFirestore, getDoc, where, doc } from "firebase/firestore";
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { useParams } from 'react-router-dom';
+import { collection, addDoc, getDoc,  doc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import noImage from '../img/download.jpeg'
 import axios from 'axios';
 
@@ -32,7 +32,7 @@ import axios from 'axios';
 // import {getStorage} from "firebase/storage"
 import {ref, uploadBytesResumable,getDownloadURL} from "firebase/storage"
 
-import {db, auth, firebaseStorage} from "../lib/firebase"
+import {db, firebaseStorage} from "../lib/firebase"
 //const functions = require('firebase-functions');
 //const admin = require('firebase-admin');
 
@@ -59,7 +59,6 @@ const AddNewPost = () => {
   let postId = useParams().postnum
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [title, setTitle] = useState("");
-  const [community, setCommunity] = useState("");
   const [description, setDescription] = useState("");
   // const [imageUpload, setImageUpload] = useState("");
   const [imageFile, setImageFile] = useState(noImage);
@@ -197,14 +196,14 @@ const AddNewPost = () => {
 
   return (
     <>
-      <Button w='20%' onClick={onOpen} variant="solid" bg="#FF5700" color='white' size='lg' height='50px'>
+      <Button w='20%' onClick={onOpen} variant="solid" bg="#d34600" color='white' size='lg' height='50px'>
         Add new post
       </Button>
 
       <Modal onClose={onClose} size="xl" isOpen={isOpen} isCentered>
         <ModalOverlay>
           <ModalContent>
-            <ModalHeader color='white' bg="#FF5700">Add new post</ModalHeader>
+            <ModalHeader color='white' bg="#d34600">Add new post</ModalHeader>
             <ModalCloseButton />
             <ModalBody color='white' bg ='rgb(33, 33, 33)'>
               <FormControl isRequired id="post-title">

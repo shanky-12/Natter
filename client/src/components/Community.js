@@ -29,7 +29,7 @@ const Community = ({ post }) => {
       </Box>
      
       <Link to={`/allposts/${post.id.toString()}`}>
-      <Button type = "submit" color='white' bg='#FF5700'>Go to</Button>
+      <Button type = "submit" color='white' bg='#d34600'>Go to</Button>
       </Link>
     </HStack>
   );

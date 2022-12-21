@@ -88,11 +88,11 @@ const Navbar = () => {
             <Flex justifyContent="flex-end" w="230%" position="sticky" top={0}>
               
 
-            {loggedIn ? <Button onClick={() => navigate('/profile')} bg='#FF5700' color='white' size="lg"  height='50px' marginRight='20px'>
+            {loggedIn ? <Button onClick={() => navigate('/profile')} bg='#d34600' color='white' size="lg"  height='50px' marginRight='20px'>
                 Profile
             </Button> : <Register />}
 
-            {loggedIn ? <Button onClick={logout} bg='#FF5700' color='white' size="lg" height='50px'>
+            {loggedIn ? <Button onClick={logout} bg='#d34600' color='white' size="lg" height='50px'>
                 Logout
             </Button> : <Login />}
               

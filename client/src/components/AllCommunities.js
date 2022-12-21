@@ -1,20 +1,12 @@
 import '../App.css';
 import { Container, Flex, Spinner, VStack, Heading } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import Post from "../components/Post";
 import Community from "../components/Community";
-import { collection, getDocs, getFirestore, onSnapshot, query, orderBy, limit } from "firebase/firestore";
-//import Comments from '../components/Comments';
-// import db from "../lib/firebase";
-import {db, auth, firebaseStorage} from "../lib/firebase"
-import AddNewPost from './AddNewPost';
-import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { collection, getDocs,  onSnapshot, query, orderBy, limit } from "firebase/firestore";
+import {db} from "../lib/firebase"
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import AddNewCommunity from './AddNewCommunity';
-//const functions = require('firebase-functions');
-//const admin = require('firebase-admin');
 
-//admin.initializeApp();
 
 function AllCommunities() {
   const [community, setCommunity] = useState([]);

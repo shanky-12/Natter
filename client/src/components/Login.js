@@ -52,7 +52,7 @@ const Login = () => {
 
   return (
     <>
-      <Button onClick={onOpen} bg='#FF5700' color='white' size="lg" margin="10px">
+      <Button onClick={onOpen} bg='#d34600' color='white' size="lg" margin="10px">
         Login
       </Button>
 
