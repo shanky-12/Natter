@@ -68,6 +68,8 @@ const VoteButtons = ({ post }) => {
       downVotesCount,
       createdAt: post.createdAt,
       updatedAt: date.toUTCString(),
+      community: post.community,
+      communityId: post.communityId
     });
     // Disable the voting button once the voting is successful.
     handleDisablingOfVoting(post.id);
@@ -86,11 +88,11 @@ const VoteButtons = ({ post }) => {
     <>
       <VStack>
         
-        <Text bg="#FF5700" rounded="md" align='center' fontSize='2xl' height='48px' color='white' width='48px' p={1} >
+        <Text bg="#d34600" rounded="md" align='center' fontSize='2xl' height='48px' color='white' width='48px' p={1} >
           <b>{post.upVotesCount}</b>
         </Text>
 
-        <Text bg="#FF5700" rounded="md" height='48px' fontSize='2xl' width='48px' color='white' p={1}>
+        <Text bg="#d34600" rounded="md" height='48px' fontSize='2xl' width='48px' color='white' p={1}>
         <b>{post.downVotesCount}</b>
         </Text>
       </VStack>

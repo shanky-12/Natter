@@ -2,6 +2,7 @@
 	text-align: center;
 	background: rgb(33, 33, 33);
   }
+
   
   .App-logo {
 	height: 10vmin;
@@ -23,7 +24,11 @@
 	font-size: 20px;
 	color: white;
   }
-  
+  .Error{
+	color: white;
+	font-weight: bold;
+	font-size: 3em;
+  }
   
   .link {
 	  padding: 10px;
@@ -168,17 +173,20 @@
 	  position: absolute;
 	  bottom: 20px;
   }
+  .boxer{
+	color:#767676;  
+  }
   span {
 	  font-weight: bold;
   }
   
   #showMoreButton{
-	  color: #ffffff;
+	  color: white;
 	  margin-top: 4rem;
 	margin-bottom: 1rem;
 	background-color: #d34600;
 	border: none;
-	color: #ffffff;
+	color: white;
 	padding: 15px 32px;
 	text-align: center;
 	text-decoration: none;
@@ -206,7 +214,7 @@
   
   .homePage {
 	  background-color: rgb(33, 33, 33);
-	  color: #ffffff;
+	  color: white;
   }
   
   .navBabies:nth-child(1) {
@@ -230,5 +238,5 @@
   
   .modalColor {
 	  background-color: rgb(33,33,33); 
-	  color: #ffffff;
+	  color: white;
   }

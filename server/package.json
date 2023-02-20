@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node gm.js",
+    "start": "pm2 start app.cjs  && pm2 start gm.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -17,10 +17,13 @@
     "@firebase/storage": "^0.10.0",
     "axios": "^1.2.1",
     "cors": "^2.8.5",
-    "express": "^4.18.2",
+    "express": "^4.17.1",
     "firebase": "^9.15.0",
     "firebase-admin": "^11.4.0",
     "gm": "^1.25.0",
-    "request": "^2.88.2"
+    "nodemon": "^2.0.15",
+    "pm2": "^5.2.2",
+    "request": "^2.88.2",
+    "socket.io": "^4.5.4"
   }
 }

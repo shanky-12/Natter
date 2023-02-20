@@ -22,6 +22,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import AddNewPost from "./AddNewPost";
+import AddNewCommunity from "./AddNewCommunity";
 import Login from "./Login";
 import Register from "./Register";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
@@ -45,13 +46,11 @@ const Navbar = () => {
 
 
   const logout = async () => {
-
     try{
       await signOut(auth)
     }catch(e){
       console.log(e)
     }
-    
   }
   
   return (
@@ -82,18 +81,18 @@ const Navbar = () => {
           <div style ={{className :"navBabies", height : '50px', width: '500px',justifyContent : 'stretch'}}>
           <Flex w="575%"
           alignContent='flex-start'>
-            {loggedIn ? <AddNewPost /> : ""}
+            {/* {loggedIn ? <AddNewPost /> : ""} */}
           </Flex>
           </div>
           <div className="navBabies">
             <Flex justifyContent="flex-end" w="230%" position="sticky" top={0}>
               
 
-            {loggedIn ? <Button onClick={() => navigate('/profile')} bg='#FF5700' color='white' size="lg"  height='50px' marginRight='20px'>
+            {loggedIn ? <Button onClick={() => navigate('/profile')} bg='#d34600' color='white' size="lg"  height='50px' marginRight='20px'>
                 Profile
             </Button> : <Register />}
 
-            {loggedIn ? <Button onClick={logout} bg='#FF5700' color='white' size="lg" height='50px'>
+            {loggedIn ? <Button onClick={logout} bg='#d34600' color='white' size="lg" height='50px'>
                 Logout
             </Button> : <Login />}
               

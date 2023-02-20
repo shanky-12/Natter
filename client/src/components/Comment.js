@@ -1,8 +1,8 @@
-import { Link, useParams } from 'react-router-dom';
-import { collection, doc, getDoc, addDoc, getFirestore, onSnapshot, query, orderBy, limit } from "firebase/firestore";
+import { useParams } from 'react-router-dom';
+import { collection, doc, getDoc, addDoc } from "firebase/firestore";
 import { db } from "../lib/firebase";
 import React, { useState, useEffect } from 'react';
-import { Container, Flex, Spinner, VStack, Textarea, Text, Button, Center, Image } from "@chakra-ui/react";
+import { Textarea, Text, Button, Center, Image } from "@chakra-ui/react";
 import AllCommentDisplay from './AllCommentDisplay';
 import '../App.css';
 import noImage from '../img/download.jpeg'
@@ -104,7 +104,7 @@ function Comment() {
                                 <br></br>
                                 {/*  {!post.updatedAt && ( */}
                                 <Button
-                                    bg='#FF5700'
+                                    bg='#d34600'
                                     color='white'
                                     /* className='button' */
                                     disabled={!value.trim()}

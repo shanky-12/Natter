@@ -43,6 +43,7 @@ import {
     const [name, setName] = useState("");
     const [posts, setPosts] = useState([]);
     const [uid, setUID] = useState("");
+    const [signedOut, setSignedOut] = useState(true)
     
 
       useEffect(() => {
@@ -53,13 +54,14 @@ import {
               setUID(user.uid);
               setEmail(user.email);
               setName(user.displayName);
+              setSignedOut(false)
               // ...
             } else {
               // User is signed out
-              // ...
+              setSignedOut(true)
             }
           });
-      });
+      }, []);
 
     
       useEffect(() => {
@@ -75,10 +77,27 @@ import {
             
           });
           setPosts(_posts);
-          console.log("Current posts details: ", posts.join(", "));
-        });
+          // console.log("Current posts details: ", posts.join(", "));
+        }, []);
     
       });
+
+      if(signedOut){
+        return (
+
+            <Card align='center'>
+
+             <Heading size='md'>You are not signed in! Login above to view your profile.</Heading>
+
+         
+             
+
+         </Card>
+         
+             );
+      }else{
+
+     
     return (
 
       <Card align='center'>
@@ -112,6 +131,7 @@ import {
     </Card>
 
     );
+}
   };
   
   export default Profile;
